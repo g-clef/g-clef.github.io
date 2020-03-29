@@ -1,5 +1,8 @@
 # G-clef's blog
 
-This is where I'll put notes about what I'm up to and what I've found useful over time. 
+I've recently started taking more effective notes on my home projects
+and home lab, so I decided to start writing stuff down here. Over time this will
+grow to cover lots of stuff, but for the moment, it has:
 
-For now, it's a placeholder.
+* [The lab](/home_lab_setup) - this is how I've set up my home lab, including the projects that are running
+on it, and how I built it.
