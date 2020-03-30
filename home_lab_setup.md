@@ -17,7 +17,7 @@ projects you could do in your home lab.
 Each section can get a bit into the weeds, so I'm going to split things up into three
 sections: 
 
-* [hardware](/lab/hardware) - What hardware I'm using and how I've got it set up.
-* [containers](/lab/lxd) - The container system I'm using, how I got it set up, and how I'm using it.
-* [kubernetes](/lab/kubernetes) - How I've got kubernetes installed & what I'm using it for
+* [hardware](/lab/hardware.md) - What hardware I'm using and how I've got it set up.
+* [containers](/lab/lxd.md) - The container system I'm using, how I got it set up, and how I'm using it.
+* [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed & what I'm using it for
 
