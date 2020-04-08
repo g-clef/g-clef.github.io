@@ -1,4 +1,7 @@
-name: G-clef's Blog
-title: null
+name: G-clef's Blog (oblig)
+title: blog.g-clef.net
 show_downloads: false
 theme: jekyll-theme-minimal
+github:
+  is_user_page: false
+
