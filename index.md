@@ -1,7 +1,7 @@
 ## The obligatory blog
 
 Like a lot of tech folks, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it
-(a thing I suspect is equivalent to stereotypical gear head's futzing with the engine of the car in the garage), and I 
+(something that feels a bit like the nerd equivalent of dorking with the engine of a car in the garage), and I 
 decided to start taking more notes on what I was doing in the interest of helping people not make the 
 same mistakes I did. These are those notes. 
 

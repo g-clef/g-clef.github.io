@@ -31,25 +31,31 @@ and didn't spend very long thinking about what size they were.
 The only unusual thing I'm doing with the Drobo is that I installed the NFS add-on to allow the Drobo to offer its 
 shares as NFS shares as well as CIFS. 
 
-With that one sentence, I probably just lost the respect of a large number of the security people reading this, since 
-NFS is uniquely awful from a security point of view. Allow me to try to reclaim my lost honor: 
+With that one sentence I probably just lost the respect of a large number of the security people reading this, since 
+NFS is uniquely awful from a security point of view. Allow me to try to reclaim some of my lost honor.
 
-At the time I'm writing this, Kubernetes doesn't have built-in support for mounting a CIFS volume in a pod, so 
-using a built-in driver was not an option. Kubernetes does have an NFS driver, and a bunch of drivers for cloud-like 
-things (AzureDisk, google cloud persistent disk, aws EBS stores). As mentioned previously, I'm looking to run as 
-vanilla an installation as I could, so I went with the driver that's built in to kubernetes. 
+The default share from a Drobo is a Samba/CIFS share. At the time I'm writing this, Kubernetes doesn't have built-in 
+support for mounting a CIFS volume in a pod, so using a built-in driver was not an option. Kubernetes does have an NFS 
+driver, and a bunch of drivers for cloud-like things (AzureDisk, Google Cloud persistent disks, AWS EBS stores). So if I
+wanted to use a built-in volume type to mount a volume in a pod, NFS seemed to be the only way to do it.
 
-There are other options that could have worked for this: local, or a custom driver. I decided against those because I
-have semi-drunk the kubernetes kool-aid. The kubernetes folks regularly use the phrase that you should treat your nodes
- (and clusters, and frankly, the vast majority of your kubernetes infrastructure) as cattle, not pets. In other words, 
-you should be prepared to kill your entire kubernetes setup periodically and you should set up your kubernetes 
-jobs and deployments so that's an okay thing to do on a regular basis. With that in mind, having to run a manual 
-command on every node seemed like the wrong way to go. It wasn't "kubernetes-esque." The local share or custom driver 
-options would have required me to manually configure every node in my cluster with this share (or the driver), which 
-also meant more manual work maintaining the cluster. 
+Kubernetes does have some other volume types that could have worked with CIFS: local, or a custom driver, but both of them 
+required doing something manual on each node that would run the pod. In the local case, I'd have to log into each 
+kubernetes node, and configure it to mount the volume when it starts. In the custom driver case, I'd have to log into 
+each node and manually install the driver. I decided against using those for two reasons: 1) I wanted to have the least 
+"custom" (aka the most vanilla) setup possible, since I wanted to spend more time using the cluster, rather than 
+maintaining it; and 2) the kubernetes folks regularly use the phrase that you should treat your nodes (and clusters, and 
+frankly, the vast majority of your kubernetes infrastructure) "like cattle, not pets." In other words, you should be 
+prepared to kill your entire kubernetes setup periodically and you should set up your kubernetes jobs and deployments 
+so that's an okay thing to do on a regular basis. Manually configuring the nodes goes against that. Since the 
+kubernetes folks release new versions of kubernetes every 6 months or so, and stop supporting previous versions after
+18 months, blowing up your entire kubernetes infrastructure is a fairly regular thing to do, so I need my setup to be
+as vanilla as possible so that I don't have to manually do a bunch of extra work every time I update kubernetes.
 
-If/when there's a CIFS mount option in kubernetes, I will quite happily remove the NFS driver from my Drobo...having 
-it makes me nervous, but I don't feel like I have a much better option at the moment.
+If/when there's a CIFS mount option in kubernetes, I will quite happily remove the NFS driver from my Drobo. I don't 
+like using it, but I don't feel like I have a much better option at the moment. It's a shame that the "default" way to 
+mount external volumes in a home kubernetes network is to use the most insecure option. I suspect that's because 
+they're focusing on supporting the cloud providers rather than labs like mine, but it's still a shame.
 
 #### Hard drives
 
@@ -76,7 +82,7 @@ So I ended up buying a 2 spares, just so I didn't have to deal with delivery wai
 #### Network
 
 I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch
-(I forget the model), but nothing flashy...I think it cost $50 on NewEgg. So they're all in the same broadcast domain,
+(I forget the model), but nothing flashy...I think it cost $50 at Newegg. So they're all in the same broadcast domain,
 no fancy routing between them.
 
 #### OS
