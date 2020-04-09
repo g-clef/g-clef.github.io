@@ -43,10 +43,10 @@ Kubernetes does have some other volume types that could have worked with CIFS: l
 required doing something manual on each node that would run the pod. In the local case, I'd have to log into each 
 kubernetes node, and configure it to mount the volume when it starts. In the custom driver case, I'd have to log into 
 each node and manually install the driver. I decided against using those for two reasons: 1) I wanted to have the least 
-"custom" (aka the most vanilla) setup possible, since I wanted to spend more time using the cluster, rather than 
+"custom" (aka the most vanilla) setup possible since I wanted to spend more time using the cluster instead of 
 maintaining it; and 2) the kubernetes folks regularly use the phrase that you should treat your nodes (and clusters, and 
 frankly, the vast majority of your kubernetes infrastructure) "like cattle, not pets." In other words, you should be 
-prepared to kill your entire kubernetes setup periodically and you should set up your kubernetes jobs and deployments 
+prepared to kill your entire kubernetes setup periodically, and you should set up your kubernetes jobs and deployments 
 so that's an okay thing to do on a regular basis. Manually configuring the nodes goes against that. Since the 
 kubernetes folks release new versions of kubernetes every 6 months or so, and stop supporting previous versions after
 18 months, blowing up your entire kubernetes infrastructure is a fairly regular thing to do, so I need my setup to be
@@ -76,7 +76,7 @@ more if you're a datacenter manager) this is just a law of averages: if a drive 
 years, you should expect 5 of them to have one failure across them each year. With 20 that turns into one failure every
 few months. That's a bit of an exaggeration (if drives were really failing that often it would quickly become cheaper
 to do this in the cloud), but I did have a lot of trouble with drives dying either at or quite soon after delivery. 
-So I ended up buying a 2 spares, just so I didn't have to deal with delivery waits to fix dead drives.
+So I ended up buying a 2 spares, just so that I didn't have to deal with delivery waits to fix dead drives.
 
 
 #### Network
@@ -87,4 +87,5 @@ no fancy routing between them.
 
 #### OS
 
-I'm running vanilla Ubuntu 18.04LTS (server) on both systems.
+I'm running vanilla Ubuntu 18.04LTS (server...never run a UI on Linux if you can avoid it. That's a subject for another 
+time) on both systems.
