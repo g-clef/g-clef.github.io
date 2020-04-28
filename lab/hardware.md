@@ -1,18 +1,27 @@
 ## Lab hardware
 
+### TLDR
+
+For those of you who don't want to read all the discussion:
+ * Servers: 2x Dell r710's (actually google search boxes, but they're just rebranded R710's)
+   * 1 RAID-1 for OS, 2x RAID-1's for container storage.
+ * NAS: Drobo B810N
+   * Drives: Some same as in the Servers, others I scrounged from systems I had leftover from previous iterations
+ * Network: Totally flat - everything's on a $50 switch
+ * OS: Vanilla Ubuntu 18.04 LTS.
+
 #### Servers
 
 The servers I'm using are recycled Google search boxes. 
 
-History lesson: Google used to sell systems that ran Google's indexing and search software in a self-contained box. 
-Companies would buy them to get the equivalent of Google's search on their internal pages (intranet sites, etc). Google 
-got out of that business a few years ago, but you can still find the servers on ebay and craigslist occasionally. 
-They're also bright yellow....I don't know why. Google apparently decided that they wanted their systems to be yellow 
-(easier to find in a rack, maybe?). Since they're in my basement, their striking plumage is sadly rather wasted.
-
-The Google boxes I got were actually re-branded Dell R710's. You can find something like these (or just straight R710's)
- on craigslist in the $200-$300 range. The ones I have came with 48GB of RAM, 2x 8-core CPU, and no hard drives. So 
- they were perfect for virtualization for a moderate-to-low CPU task set.
+Google used to sell systems that ran Google's indexing and search software as a search appliance. 
+Companies would buy them to get the equivalent of Google's search on their internal pages. Google 
+got out of that business a few years ago, but didn't take back the servers, so companies sold them or 
+donated them when the service stopped being supported.  Google released multiple variations on these guys. 
+The one I got were actually re-branded Dell R710's. You can find something like these (or just straight R710's) on 
+craigslist in the $200-$300 range. The ones I have came with 48GB of RAM, 2x 8-core CPU, and no hard drives. So 
+they were perfect for virtualization for a moderate-to-low CPU task set. They're also bright yellow....I don't know 
+why. Since they're in my basement, their striking plumage is wasted.
 
 The first problem with the Google Search boxes was that they were set up to run only the Linux distro that Google put 
 on the box, and that just wasn't going to do. Google posted instructions to "re-purpose" those systems at 
@@ -20,46 +29,29 @@ on the box, and that just wasn't going to do. Google posted instructions to "re-
 to re-flash the BIOS to unlock some of the other BIOS features (virtualization, for example). The instructions
 to do that are helpfully posted at 
 [http://iblogit.net/index.php/2017/12/04/repurposing-a-google-gsa-google-search-appliance-a-step-by-step-how-to-guide/](http://iblogit.net/index.php/2017/12/04/repurposing-a-google-gsa-google-search-appliance-a-step-by-step-how-to-guide/) 
-Once all that was done, I was left with two boxes that would boot whatever I wanted, but no hard drives.
 
-#### Storage
+Once all that was done, I was left with two boxes that would boot whatever I wanted, but no hard drives. "Whatever I 
+wanted" from an OS point of view was Ubuntu LTS 18.04. Why? Because I don't want to have to spend time messing with
+stuff...Ubuntu isn't perfect (I know), but it's easy for me to get going with it quickly.
+
+So now I need somewhere for the various applications to store stuff (the local server storage isn't the right place),
+and hard drives for the servers.
+
+#### NAS Storage
 
 For all long-term/persistent storage I'm using a Drobo B810N as a NAS. Its handling of different drive sizes makes it a 
 good candidate for a patched-together lab like this...I grabbed the hard drives I had available, slapped them into it, 
 and didn't spend very long thinking about what size they were.
 
 The only unusual thing I'm doing with the Drobo is that I installed the NFS add-on to allow the Drobo to offer its 
-shares as NFS shares as well as CIFS. 
+shares as NFS shares as well as CIFS. With that one sentence I probably just lost the respect of a large number of the 
+security people reading this, since NFS is uniquely awful from a security point of view. Allow me to try to reclaim 
+some of my lost honor [here](NFS.md).
 
-With that one sentence I probably just lost the respect of a large number of the security people reading this, since 
-NFS is uniquely awful from a security point of view. Allow me to try to reclaim some of my lost honor.
-
-The default share from a Drobo is a Samba/CIFS share. At the time I'm writing this, Kubernetes doesn't have built-in 
-support for mounting a CIFS volume in a pod, so using a built-in driver was not an option. Kubernetes does have an NFS 
-driver, and a bunch of drivers for cloud-like things (AzureDisk, Google Cloud persistent disks, AWS EBS stores). So if I
-wanted to use a built-in volume type to mount a volume in a pod, NFS seemed to be the only way to do it.
-
-Kubernetes does have some other volume types that could have worked with CIFS: local, or a custom driver, but both of them 
-required doing something manual on each node that would run the pod. In the local case, I'd have to log into each 
-kubernetes node, and configure it to mount the volume when it starts. In the custom driver case, I'd have to log into 
-each node and manually install the driver. I decided against using those for two reasons: 1) I wanted to have the least 
-"custom" (aka the most vanilla) setup possible since I wanted to spend more time using the cluster instead of 
-maintaining it; and 2) the kubernetes folks regularly use the phrase that you should treat your nodes (and clusters, and 
-frankly, the vast majority of your kubernetes infrastructure) "like cattle, not pets." In other words, you should be 
-prepared to kill your entire kubernetes setup periodically, and you should set up your kubernetes jobs and deployments 
-so that's an okay thing to do on a regular basis. Manually configuring the nodes goes against that. Since the 
-kubernetes folks release new versions of kubernetes every 6 months or so, and stop supporting previous versions after
-18 months, blowing up your entire kubernetes infrastructure is a fairly regular thing to do, so I need my setup to be
-as vanilla as possible so that I don't have to manually do a bunch of extra work every time I update kubernetes.
-
-If/when there's a CIFS mount option in kubernetes, I will quite happily remove the NFS driver from my Drobo. I don't 
-like using it, but I don't feel like I have a much better option at the moment. It's a shame that the "default" way to 
-mount external volumes in a home kubernetes network is to use the most insecure option. I suspect that's because 
-they're focusing on supporting the cloud providers rather than labs like mine, but it's still a shame.
 
 #### Hard drives
 
-Frankly, hard drives were the most expensive part of this whole project. The Google boxes can hold 6 SAS drives each, 
+Hard drives were the most expensive part of this whole project. The Google boxes can hold 6 SAS drives each, 
 and the Drobo another 8. Buying 1-TB or greater drives adds up fast when you're buying 20 of them. I scrounged what I
 could from other systems I'd had lying around over the years, but mostly I just had to suck it up and buy some.
 

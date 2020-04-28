@@ -1,11 +1,11 @@
 ## The obligatory blog
 
-Like a lot of tech folks, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it
-(something that feels a bit like the nerd equivalent of dorking with the engine of a car in the garage), and I 
-decided to start taking more notes on what I was doing in the interest of helping people not make the 
-same mistakes I did. These are those notes. 
+Like a lot of tech folks, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it,
+and I decided to start taking more notes on what I was doing in the interest of my own sanity, and to help people not 
+make the same mistakes I did.
 
-* [lab infrastructure](/home_lab_setup.md) - How I've set up my home lab
+* [but why?](/why.md) - Why I rebuilt it, and what it used to be
+* [lab infrastructure](/home_lab_setup.md) - How it's set up (software, hardware, etc)
 
 #### whoami
 
