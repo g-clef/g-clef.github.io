@@ -12,16 +12,15 @@ For those of you who don't want to read all the discussion:
 
 #### Servers
 
-The servers I'm using are recycled Google search boxes. 
-
-Google used to sell systems that ran Google's indexing and search software as a search appliance. 
-Companies would buy them to get the equivalent of Google's search on their internal pages. Google 
-got out of that business a few years ago, but didn't take back the servers, so companies sold them or 
-donated them when the service stopped being supported.  Google released multiple variations on these guys. 
-The one I got were actually re-branded Dell R710's. You can find something like these (or just straight R710's) on 
-craigslist in the $200-$300 range. The ones I have came with 48GB of RAM, 2x 8-core CPU, and no hard drives. So 
-they were perfect for virtualization for a moderate-to-low CPU task set. They're also bright yellow....I don't know 
-why. Since they're in my basement, their striking plumage is wasted.
+History lesson time: Google used to sell systems that ran Google's indexing and search software as an 
+appliance - companies would buy them to get the equivalent of Google's search on their internal pages. Google 
+got out of that business a few years ago but didn't take back the servers, so the companies that had them
+sold them or donated them when the service stopped being supported.  Google released multiple variations 
+on these guys, but they were usually re-braded commercially available servers.  The ones I got were 
+re-branded Dell R710's. You can find something like these (or just straight R710's) on craigslist in the 
+$200-$300 range. The ones I have came with 48GB of RAM, 2x 8-core CPUs, and no hard drives. So 
+they were perfect for virtualization for a moderate-to-low CPU task set. They're also bright 
+yellow. Since they're in my basement, their striking plumage is wasted.
 
 The first problem with the Google Search boxes was that they were set up to run only the Linux distro that Google put 
 on the box, and that just wasn't going to do. Google posted instructions to "re-purpose" those systems at 
