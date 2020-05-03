@@ -22,7 +22,7 @@ This worked in the short term, but hard drive failures in the small boxes convin
 couldn't count on the small boxes for storage. 
 
 
-## Phase 2: more storage, more problems
+## More storage, more problems
 
 To get over the local limitations, I added a Drobo RAID to store any data collected by my scripts.
 
