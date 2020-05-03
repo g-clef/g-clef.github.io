@@ -6,7 +6,7 @@ I also *really* rather not spend the time to set up its replacement, either...an
 to set up a secure way to do it was too low for a home lab. I'd rather be doing actual research 
 than dorking with infrastructure. 
 
-To get farther into the weeds:
+## Secure by default...except when the default doesn't exist
 
 The default share from a Drobo is a Samba/CIFS share. At the time I'm writing this, Kubernetes doesn't have built-in 
 support for mounting a CIFS volume in a pod, so using a built-in driver was not an option. Kubernetes does have an NFS 
