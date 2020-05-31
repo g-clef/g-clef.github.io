@@ -1,8 +1,8 @@
 ## The obligatory blog
 
-Like a lot of tech folks, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it,
-and I decided to start taking more notes on what I was doing in the interest of my own sanity, and to help people not 
-make the same mistakes I did.
+Like a lot of techies, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it.
+While building it *this* time, I took notes on what I was doing. These notes were taken mostly for the sake of my own 
+sanity, but I thought it might help people not make the same mistakes I did if they saw what I did.
 
 TLDR: my lab is 2 recycled Google search boxes running an lxd container cluster, with containers running docker (yo, 
 dawg, I heard you like containers), postgres, ubuntu juju, and kubernetes, with a Drobo NAS holding all the persistent 

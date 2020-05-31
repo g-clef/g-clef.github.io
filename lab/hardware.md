@@ -23,15 +23,16 @@ they were perfect for virtualization for a moderate-to-low CPU task set. They're
 yellow. Since they're in my basement, their striking plumage is wasted.
 
 The first problem with the Google Search boxes was that they were set up to run only the Linux distro that Google put 
-on the box, and that just wasn't going to do. Google posted instructions to "re-purpose" those systems at 
-[https://support.google.com/gsa/answer/6055109?hl=en](https://support.google.com/gsa/answer/6055109?hl=en) . I also had
-to re-flash the BIOS to unlock some of the other BIOS features (virtualization, for example). The instructions
-to do that are helpfully posted at 
+on the box, and that just wasn't going to be okay...I needed to be able to patch the OS, at the very least, etc. 
+Google posted instructions to "re-purpose" those systems at 
+[https://support.google.com/gsa/answer/6055109?hl=en](https://support.google.com/gsa/answer/6055109?hl=en) , which was
+a good start. I also had to re-flash the BIOS to unlock some of the other BIOS features (virtualization, for example). 
+The instructions I followed to do that are at this link: 
 [http://iblogit.net/index.php/2017/12/04/repurposing-a-google-gsa-google-search-appliance-a-step-by-step-how-to-guide/](http://iblogit.net/index.php/2017/12/04/repurposing-a-google-gsa-google-search-appliance-a-step-by-step-how-to-guide/) 
 
-Once all that was done, I was left with two boxes that would boot whatever I wanted, but no hard drives. "Whatever I 
+Once all that was done, I was left with two boxes that would boot whatever OS I wanted, but no hard drives. "Whatever I 
 wanted" from an OS point of view was Ubuntu LTS 18.04. Why? Because I don't want to have to spend time messing with
-stuff...Ubuntu isn't perfect (I know), but it's easy for me to get going with it quickly.
+stuff...Ubuntu isn't perfect, but it's easy for me to get going with it quickly.
 
 So now I need somewhere for the various applications to store stuff (the local server storage isn't the right place),
 and hard drives for the servers.
@@ -51,24 +52,29 @@ some of my lost honor [here](NFS.md).
 #### Hard drives
 
 Hard drives were the most expensive part of this whole project. The Google boxes can hold 6 SAS drives each, 
-and the Drobo another 8. Buying 1-TB or greater drives adds up fast when you're buying 20 of them. I scrounged what I
-could from other systems I'd had lying around over the years, but mostly I just had to suck it up and buy some.
+and the Drobo another 8. The cost of 1-TB or greater drives adds up fast when you're buying 20 of them. I 
+scrounged what I could from other systems I'd had lying around over the years (especially the previous iterations
+of the lab), but eventually I just had to suck it up and buy some hard drives.
 
 For the servers, since they have 6 bays, you could theoretically have 6 volumes on each server, each as a standalone 
-RAID 0. As mentioned earlier, I'm optimizing some of this setup to minimize my time spent managing it, so I didn't do
-that. I configured the drives as 3 sets of RAID-1's. One RAID was for the OS (and I bought smaller drives for this set, 
-since the OS won't need that much storage), the other two were for the container storage (more on this when we talk about
- the LXD configuration). I realize that RAID-1 is slower than RAID-0, but I'm willing to trade that speed for 
-redundancy...I only go down to the basement to look at these servers once a month or so, and I want them to be able to 
-absorb a failure or two in that time without taking the whole system down.
+RAID 0, which would maximize the storage space available on the servers. I didn't do that, for a couple reasons. 
 
-One frustrating thing I've found is that SAS drives fail...often. To a certain extent when you're talking about 20 (or
-more if you're a datacenter manager) this is just a law of averages: if a drive is going to fail on average after 5 
-years, you should expect 5 of them to have one failure across them each year. With 20 that turns into one failure every
-few months. That's a bit of an exaggeration (if drives were really failing that often it would quickly become cheaper
-to do this in the cloud), but I did have a lot of trouble with drives dying either at or quite soon after delivery. 
-So I ended up buying a 2 spares, just so that I didn't have to deal with delivery waits to fix dead drives.
+First, local storage on the servers isn't actually that useful. I'm trying to design so that all the storage I actually
+*care* about is on the NAS. So having tons of storage on the server doesn't really help that cause. 
 
+Second, I'm optimizing this setup to minimize my time spent managing it. Maximizing the storage with RAID 0 also 
+maximizes the effect of a single drive failure. One frustrating thing I've found is that SAS drives fail...often. 
+To a certain extent when you're talking about 20 (or more if you're a datacenter manager) this is just a law of 
+averages: if a drive is going to fail on average after 5 years, you should expect 5 of them to have one failure across 
+them each year. With 20 that turns into one failure every few months. That's a bit of an exaggeration (if drives were 
+really failing that often it would quickly become cheaper to do this in the cloud), but I did have a lot of trouble 
+with drives dying either at or quite soon after delivery.
+
+So I configured the server drives as 3 sets of RAID-1's. One RAID was for the OS (and I bought smaller drives for 
+this set, since the OS won't need that much storage), the other two were for the container storage. I realize that 
+RAID-1 is slower than RAID-0, but I'm willing to trade that speed for redundancy...I only go down to the basement 
+to look at these servers once a month or so, and I want them to be able to absorb a failure or two in that time 
+without taking the whole system down.
 
 #### Network
 
