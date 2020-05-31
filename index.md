@@ -9,9 +9,10 @@ dawg, I heard you like containers), postgres, ubuntu juju, and kubernetes, with 
 data.
 
 * [but why?](/why.md) - Why I rebuilt it, and what it used to be
-* [hardware](/lab/hardware.md) - What hardware I'm using and how I've got it set up.
-* [containers](/lab/lxd.md) - The container system I'm using, how I got it set up, and how I'm using it.
-* [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed & what I'm using it for
+* [hardware & OS](/lab/hardware.md) - What hardware I'm using, how I've got it set up, and any special OS configurations.
+* [containers](/lab/lxd.md) - The container system I'm using (LXC/LXD), how I got it set up, and how I'm using it.
+* [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed
+* [projects](/projects/index.md) - The fun part: the actual projects I'm working on in the lab.
 
 #### whoami
 
