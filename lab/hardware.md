@@ -1,4 +1,4 @@
-## Lab hardware
+## Lab hardware and base OS setup
 
 ### TLDR
 
@@ -70,11 +70,17 @@ them each year. With 20 that turns into one failure every few months. That's a b
 really failing that often it would quickly become cheaper to do this in the cloud), but I did have a lot of trouble 
 with drives dying either at or quite soon after delivery.
 
-So I configured the server drives as 3 sets of RAID-1's. One RAID was for the OS (and I bought smaller drives for 
+So I configured the server drives as 3 sets of RAID-1's. One RAID was for the OS (I used smaller drives for 
 this set, since the OS won't need that much storage), the other two were for the container storage. I realize that 
 RAID-1 is slower than RAID-0, but I'm willing to trade that speed for redundancy...I only go down to the basement 
 to look at these servers once a month or so, and I want them to be able to absorb a failure or two in that time 
 without taking the whole system down.
+
+The RAID configuration was done in the Dell PERC setup program (Ctrl-R during boot). You can find a number of pages 
+and videos describing this process for Dell systems. The main thing I took care to do was to pair the physical
+drives to be in RAID-1 groups physically near each other: the drive bays in the Google boxes are 2 high, and 3 across, 
+so each vertical column was one RAID set. That way I can easily see which RAID group is in trouble if a given drive 
+indicator light turns orange. 
 
 #### Network
 
@@ -85,4 +91,5 @@ no fancy routing between them.
 #### OS
 
 I'm running vanilla Ubuntu 18.04LTS (server...never run a UI on Linux if you can avoid it. That's a subject for another 
-time) on both systems.
+time) on both systems. The only unusual thing for installation was that I made sure to install the OS on the smallest
+RAID partition, and make custom mount points for the other two RAID sets at "/data1" and "/data2". 
