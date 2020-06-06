@@ -1,12 +1,9 @@
 ## The obligatory blog
 
-Like a lot of techies, I've got a home lab. It's not the biggest, fanciest lab, but it's mine. I recently rebuilt it.
-While building it *this* time, I took notes on what I was doing. These notes were taken mostly for the sake of my own 
-sanity, but I thought it might help people not make the same mistakes I did if they saw what I did.
-
-TLDR: my lab is 2 recycled Google search boxes running an lxd container cluster, with containers running docker (yo, 
-dawg, I heard you like containers), postgres, ubuntu juju, and kubernetes, with a Drobo NAS holding all the persistent 
-data.
+Last year I made the mistake of deciding to rebuild my home lab. My home lab isn't the biggest or 
+fanciest, but it has just enough idiosyncracies, and life has caught up to me enough, that the rebuild process turned
+into a saga of its own. This wouldn't have been the first time a rebuild turned into a Star-Wars-level quest, but 
+*this* time I took notes. 
 
 * [but why?](/why.md) - Why I rebuilt it, and what it used to be
 * [hardware & OS](/lab/hardware.md) - What hardware I'm using, how I've got it set up, and any special OS configurations.

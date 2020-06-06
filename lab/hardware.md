@@ -14,16 +14,17 @@ For those of you who don't want to read all the discussion:
 
 History lesson time: Google used to sell systems that ran Google's indexing and search software as an 
 appliance - companies would buy them to get the equivalent of Google's search on their internal pages. Google 
-got out of that business a few years ago but didn't take back the servers, so the companies that had them
-sold them or donated them when the service stopped being supported.  Google released multiple variations 
-on these guys, but they were usually re-braded commercially available servers.  The ones I got were 
-re-branded Dell R710's. You can find something like these (or just straight R710's) on craigslist in the 
-$200-$300 range. The ones I have came with 48GB of RAM, 2x 8-core CPUs, and no hard drives. So 
-they were perfect for virtualization for a moderate-to-low CPU task set. They're also bright 
-yellow. Since they're in my basement, their striking plumage is wasted.
+got out of that business a few years ago but didn't take back the servers. As they stopped using the (now unsupported)
+Google boxes, those companies sold them or donated them, so they started appearing on Craigslist & Ebay.
+
+Google released multiple variations on these servers, but they were usually re-braded commercially available systems.  
+The ones I got were re-branded Dell R710's. You can find something like them (or just straight R710's) on 
+Ccraigslist for a few hundred dollars each. The ones I have came with 48GB of RAM, 2x 8-core CPUs, and no hard drives. 
+They're perfect for virtualization for a moderate-to-low CPU task set. They're also bright yellow. Since they're in my 
+basement, their striking plumage is, sadly, wasted.
 
 The first problem with the Google Search boxes was that they were set up to run only the Linux distro that Google put 
-on the box, and that just wasn't going to be okay...I needed to be able to patch the OS, at the very least, etc. 
+on the box, and that just wasn't going to be okay...I needed to be able to patch the OS, at the very least. 
 Google posted instructions to "re-purpose" those systems at 
 [https://support.google.com/gsa/answer/6055109?hl=en](https://support.google.com/gsa/answer/6055109?hl=en) , which was
 a good start. I also had to re-flash the BIOS to unlock some of the other BIOS features (virtualization, for example). 
@@ -52,14 +53,17 @@ some of my lost honor [here](NFS.md).
 #### Hard drives
 
 Hard drives were the most expensive part of this whole project. The Google boxes can hold 6 SAS drives each, 
-and the Drobo another 8. The cost of 1-TB or greater drives adds up fast when you're buying 20 of them. I 
+and the Drobo another 8. The cost of 1-TB (or more) drives adds up fast when you're buying 20 of them. I 
 scrounged what I could from other systems I'd had lying around over the years (especially the previous iterations
 of the lab), but eventually I just had to suck it up and buy some hard drives.
 
 For the servers, since they have 6 bays, you could theoretically have 6 volumes on each server, each as a standalone 
 RAID 0, which would maximize the storage space available on the servers. I didn't do that, for a couple reasons. 
 
-First, local storage on the servers isn't actually that useful. I'm trying to design so that all the storage I actually
+First, local storage on the servers isn't actually that useful. I leared the hard way with the previous iteration of 
+my lab that local storage (even if in a RAID), while fast and easy, is a bad idea for data I want to keep and/or do
+other analysis on. (If all your data is on server1, that means you have to run all the analysis jobs on that server,
+which is a bit of a pain in the neck.) So I tried to design the lab so that all the data I actually
 *care* about is on the NAS. So having tons of storage on the server doesn't really help that cause. 
 
 Second, I'm optimizing this setup to minimize my time spent managing it. Maximizing the storage with RAID 0 also 
@@ -76,20 +80,21 @@ RAID-1 is slower than RAID-0, but I'm willing to trade that speed for redundancy
 to look at these servers once a month or so, and I want them to be able to absorb a failure or two in that time 
 without taking the whole system down.
 
-The RAID configuration was done in the Dell PERC setup program (Ctrl-R during boot). You can find a number of pages 
-and videos describing this process for Dell systems. The main thing I took care to do was to pair the physical
-drives to be in RAID-1 groups physically near each other: the drive bays in the Google boxes are 2 high, and 3 across, 
-so each vertical column was one RAID set. That way I can easily see which RAID group is in trouble if a given drive 
-indicator light turns orange. 
+The RAID configuration was done in the Dell PERC setup program (Ctrl-R during boot). The main thing I took care to 
+do was to pair the physicaldrives to be in RAID-1 groups physically near each other: the drive bays in the
+ Google boxes are 2 high, and 3 across, so each vertical column was one RAID set. That way I can easily see which 
+ RAID group is in trouble if a given drive indicator light turns orange. 
 
 #### Network
 
-I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch
-(I forget the model), but nothing flashy...I think it cost $50 at Newegg. So they're all in the same broadcast domain,
+I like packets, and networking...I really do, but there's really no reason to make this network fancy in any way. 
+I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch (I 
+forget the model), but nothing flashy...I think it cost $50 at Newegg. The servers are in the same broadcast domain,
 no fancy routing between them.
 
 #### OS
 
-I'm running vanilla Ubuntu 18.04LTS (server...never run a UI on Linux if you can avoid it. That's a subject for another 
-time) on both systems. The only unusual thing for installation was that I made sure to install the OS on the smallest
-RAID partition, and make custom mount points for the other two RAID sets at "/data1" and "/data2". 
+I'm running vanilla Ubuntu 18.04LTS  on the servers. I'm only running the server version. Life lesson: never 
+run a GUI on Linux unless you like rebuilding your Window manager every other year. As mentioned before, I don't enjoy
+that anymore...looking back at the number of times I found myself with a broken window manager after a dist-upgrade, 
+I don't think I enjoyed it then, either. Why I kept doing it remains a mystery to me.

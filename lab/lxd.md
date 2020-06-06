@@ -1,13 +1,13 @@
-## Setting up a clustered container system with LXD
-  
-### WTF is lxd?
+## Yo, Dawg, I heard you like abstraction layers
 
-#### What is this, and why do I care? 
+
+
+### WTF is lxd?
 
 LXD is a virtualization system built on top of LXC. (Turns out there is an LX***E***, which is related to all of this,
 but I'm not going to go into it...if we get to LXF I'll get worried.) 
 
-LX***C*** is a container system built on top of some built-in Linux virtualization controls. LX***D*** uses LXC to run 
+LX***C*** is a container system built on top of Linux virtualization controls. LX***D*** uses LXC to run 
 VMs as if they were LX***C*** containers. LXC is *kinda* like docker (Docker used to use LXC under the hood, but 
 moved away from it a while ago), and LXD built on top of that to make full OS virtualization an option within LXC 
 containers. Because they're still containers, it doesn't take as much overhead to run a Virtual Machine through LXD 
@@ -16,16 +16,14 @@ networking stack, making it easier to get the applications you deploy in an LXD 
 other things talk to it). In fact, LXD builds in an "Overlay" network where it assigns IP addresses to it's nodes and 
 handles routing traffic between them automatically.
 
-### Now, we install.
+### Tonight, we install.
 
-As mentioned in the hardware section, I have 3 drives on my lab machines: the OS, and 2 RAID-1 volumes (called, 
-creatively, "data1" and "data2"). What I'm going to do is make "data1" and "data2" the storage locations for the
-lxd daemon. I'm also going to configure LXD in a cluster, so that the two systems will share resources between them
-when deciding where to launch a new container or VM.
+I have 3 RAID-1 volumes on each machine: the OS, and 2 storage volumes (called, creatively, "data1" and "data2"). 
+What I'm going to do is make "data1" and "data2" the storage locations for the lxd daemon. I'm also going to configure 
+LXD in a cluster, so that the two systems will share resources between them when deciding where to launch a new 
+container or VM.
 
-So what did I do:
-
-First note: I had to install LXD via Ubuntu's *snap* system. For reasons that I understand, but find 
+Aside: I had to install LXD via Ubuntu's *snap* system. For reasons that I understand, but find 
 regrettable, Ubuntu is trying to move everything away from the debian-based *apt* system and over to *snap*. This means
 that projects like LXD will really only appear in the *snap*. My 18.04 systems didn't already have snap installed, so 
 I had to do:
