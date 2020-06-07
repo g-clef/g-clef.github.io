@@ -18,9 +18,9 @@ backwards. In fact, when looking at workloads (especially if I was going to use 
 I didn't need the small servers at all, and could just make containers out of the jobs I'd run on the desktop servers,
 so I gave away the desktop servers, and made the Google boxes my only servers. 
 
-Google released multiple variations on these servers, but they were usually re-braded commercially available systems.  
+Google released multiple variations on these servers, but they were usually re-braded commercially available systems. 
 The ones I got were re-branded Dell R710's. You can find something like them (or just straight R710's) on 
-Ccraigslist for a few hundred dollars each. The ones I have came with 48GB of RAM, 2x 8-core CPUs, and no hard drives. 
+Craigslist for a few hundred dollars each. The ones I have came with 48GB of RAM, 2x 8-core CPUs, and no hard drives. 
 They're perfect for virtualization for a moderate-to-low CPU task set. They're also bright yellow. Since they're in my 
 basement, their striking plumage is, sadly, wasted.
 
@@ -88,14 +88,14 @@ do was to pair the physicaldrives to be in RAID-1 groups physically near each ot
 
 #### Network
 
-I like packets, and networking...I really do, but there's really no reason to make this network fancy in any way. 
+I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
 I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch (I 
-forget the model), but nothing flashy...I think it cost $50 at Newegg. The servers are in the same broadcast domain,
+forget the model), but nothing flashy. I think it cost $50 at Newegg. The servers are in the same broadcast domain,
 no fancy routing between them.
 
 #### OS
 
 I'm running vanilla Ubuntu 18.04LTS  on the servers. I'm only running the server version. Life lesson: never 
 run a GUI on Linux unless you like rebuilding your Window manager every other year. As mentioned before, I don't enjoy
-that anymore...looking back at the number of times I found myself with a broken window manager after a dist-upgrade, 
+that anymore. Looking back at the number of times I found myself with a broken window manager after a dist-upgrade, 
 I don't think I enjoyed it then, either. Why I kept doing it remains a mystery to me.
