@@ -14,31 +14,30 @@ existence of this new "life," I wanted to actually do new things with the lab ra
 
 ## The way it used to be
 
-My first iteration of the lab looked like it came from a yard sale (which it really could have). I had
-6 half-height desktop machines that I'd bought from Woot for about $40 each, and 2 Google Search boxes (more on them 
-later) as beefy ElasticSearch boxes.
+My first iteration of the lab looked like it came from a yard sale. It consistend of 6 half-height desktop machines 
+that I'd bought from Woot for about $40 each, and 2 Google Search servers. The desktop machines ran the tasks, and 
+the Google search boxes ran a minimally-redundant ElasticSearch cluster.
 
-This worked in the short term, but hard drives kept filling, and the occasional catastrophic drive failure in 
-the desktop boxes convinced me that I couldn't count on the small boxes for storage. 
-
+This worked in the short term, but hard drives kept filling, and the occasional catastrophic drive failure convinced me 
+that I couldn't count on any of the servers (big or small) for storage of data. 
 
 ## More storage, more problems
 
 To get over the local limitations, I added a Drobo NAS to store all the data my little experiments collected.
 
 Adding the NAS was the right thing to do, but it exposed a race condition. My house has regular short power 
-outages, because the local power company is run by jerks (seriously, fuck Pepco). When I'd lose power, 
+outages, because the local power company is run by jerks (f&*k Pepco). When I'd lose power, 
 my whole lab would, obviously, shut down. When power would come back up, the lab systems would 
 come back up in their own order, but the Drobo would be one of the last things to come back. The 
-problem is that the servers were configured to mount the Drobo's shares at boot, and since the Drobo 
+problem is that the Linux desktop boxes were configured to mount the Drobo's shares at boot, and since the Drobo 
 wasn't running when the servers booted, that mount would fail. Linux wouldn't re-try that mount, it would just boot 
 into a busted state.
 
-This meant that every time I lost power (sometimes quite often), I would have to go downstairs, re-mount
-the RAID on each server, then restart the services that wrote to the RAID, and migrate any data that got 
+This meant that every time I lost power (sometimes quite often...seriously, f%^k Pepco), I would have to go downstairs, 
+re-mount the RAID on each server, then restart the services that wrote to the RAID, and migrate any data that got 
 saved in the wrong place onto the RAID.
 
-Add to that the occasional hardware failure on the small boxes, ubuntu dist-upgrades failing every
+Add to that the occasional hardware failure on the small boxes, Ubuntu dist-upgrades failing every
 single time I tried, and I found I was spending a lot of time just running in place.
 
 That sucked. So...rebuild time.

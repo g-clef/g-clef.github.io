@@ -12,10 +12,11 @@ For those of you who don't want to read all the discussion:
 
 #### Servers
 
-History lesson time: Google used to sell systems that ran Google's indexing and search software as an 
-appliance - companies would buy them to get the equivalent of Google's search on their internal pages. Google 
-got out of that business a few years ago but didn't take back the servers. As they stopped using the (now unsupported)
-Google boxes, those companies sold them or donated them, so they started appearing on Craigslist & Ebay.
+When I originally started this all, I had 6 small ex-desktop servers, and 2 re-purposed Google search servers. The 
+more I looked at usage, the small boxes were overloaded with tasks, and the search servers were bored. This seemed 
+backwards. In fact, when looking at workloads (especially if I was going to use Kubernetes), it started to look like
+I didn't need the small servers at all, and could just make containers out of the jobs I'd run on the desktop servers,
+so I gave away the desktop servers, and made the Google boxes my only servers. 
 
 Google released multiple variations on these servers, but they were usually re-braded commercially available systems.  
 The ones I got were re-branded Dell R710's. You can find something like them (or just straight R710's) on 

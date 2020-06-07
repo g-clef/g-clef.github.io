@@ -42,7 +42,32 @@ Next I set up the first LXD daemon.
 
     lxd init
     
-(Note, do not choose ***--auto*** for this step.) This launched an interactive set up questions to configure LXD.
-For the first question (do you want to run this in a cluster), I said "yes". This triggered a bunch of followup
-questions to configure the cluster. Some of those answers were things that I needed to have noted down (the cluster
-password for example)
+After some experimentation, I learned that it's important to *not* choose ***--auto*** for this step. Anyway, this 
+command launched an interactive set-up prompts to configure LXD. Most of the answers to these questions were obvious, 
+and the defaults reasonable, but I had to make sure to say that yes, I was making a cluster. This is the point where 
+the serious note-taking started, since the answers here were important: on the first machine I was making a new
+cluster, setting the password to join the cluster, creating the new bridge and fan overlay network, etc. Other than 
+the password, the defaults here seemed reasonable to me (see previous comments about making things as vanilla as 
+possible). 
+
+My only concession to configuration was setting up storage. Since I'd configured the Google boxes with 3 RAID 1's, 
+I wanted to use the non-OS-holding RAIDs for container storage. That meant I had to configure that in LXC. That's
+fairly easy:
+    	lxc storage create data1 dir source=/data1/lxd
+		lxc storage create data2 dir source=/data2/lxd
+		lxc storage create default dir source=/data1/lxd-default
+		lxc profile device add default root disk path=/ pool=default
+		
+This made */data1* the place where the actual containers will live, and gave me two other pools to use to store 
+other stuff (if using juju to make a new container, for example, I could add “storage=data2” to the create command
+and it would be stored on the /data2 path).
+
+I did all of this on the first machine, because when running the commands on the second machine to join the cluster,
+it mostly just inherited the configuration from the first. The second *lxd init* command will as if you want to make 
+a cluster (I said yes), then ask for the URL of the first server, and the password. It then asked me for the paths
+to match the storage pools created on the first box, I entered those the same way they were on the first one, since the
+two boxes are basically identical.
+
+At that point, I was done with LXD/LXC setup. I had a working 2-node cluster. For more general safety, I should have 
+three machines to make this a real cluster. When I get more money I'll get another Google box and some drives...this 
+will do for now.
