@@ -1,7 +1,5 @@
 ## Yo, Dawg, I heard you like abstraction layers
 
-
-
 ### WTF is lxd?
 
 LXD is a virtualization system built on top of LXC. (Turns out there is an LX***E***, which is related to all of this,
@@ -53,6 +51,7 @@ possible).
 My only concession to configuration was setting up storage. Since I'd configured the Google boxes with 3 RAID 1's, 
 I wanted to use the non-OS-holding RAIDs for container storage. That meant I had to configure that in LXC. That's
 fairly easy:
+
     	lxc storage create data1 dir source=/data1/lxd
 		lxc storage create data2 dir source=/data2/lxd
 		lxc storage create default dir source=/data1/lxd-default
