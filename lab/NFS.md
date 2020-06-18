@@ -20,6 +20,7 @@ local case, I'd have to log into each  kubernetes node, and configure it to moun
 custom driver case, I'd have to log into each node and manually install the driver. 
 
 I decided against using those for two reasons: 
+
  1) I wanted to have the least "custom" (aka the most vanilla) setup possible since I wanted to spend more time using 
  the cluster instead of maintaining it; and 
  2) the kubernetes folks regularly use the phrase that you should treat your nodes (and clusters, and frankly, the 
