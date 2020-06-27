@@ -15,17 +15,16 @@ Enter LXD.
 
 ### WTF is lxd?
 
-LXD is a virtualization system built on top of LXC. 
+LXD is a virutalization system built as an extension of LXC.
 
 ### So WTF is LXC?
 
 LX***C*** is a container management system built on top of Linux virtualization controls. 
 
-LX***D*** uses LX***C*** to run Virtual Machines as if they were LX***C*** containers. LXC is *kinda* like docker 
-(Docker used to use LXC under the hood, but moved away from it a while ago), and LXD built on top of that to make 
-full OS virtualization an option within LXC containers. Because they're still containers, it doesn't take as much 
-overhead to run a VM through LXD as it would with a regular Virtualization system like KVM. But, because they're VMs, 
-each LXD VM gets their own networking stack, making it easier to get the applications you deploy in an LXD node to 
+LXC is *kinda* like docker (Docker used to use LXC under the hood, but moved away from it a while ago), and LXD 
+built on top of that to offer new capabilities like live migration, snapshots, etc. Because they're still containers, it doesn't take as much 
+overhead to run a VM through LXC/LXD as it would with a regular Virtualization system like KVM. But, because they're VMs, 
+each VM gets their own networking stack, making it easier to get the applications you deploy in an LXD node to 
 talk to other things (or have other things talk to it). In fact, LXD builds in an "Overlay" network where it assigns 
 IP addresses to it's nodes and handles routing traffic between them automatically.
 
