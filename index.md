@@ -10,6 +10,7 @@ quest, but *this* time was different - this time I took notes. These are those n
 * [containers](/lab/lxd.md) - The container system I'm using (LXC/LXD), how I got it set up
 * [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed
 * [projects](/projects/index.md) - The fun part: the actual projects I'm working on in the lab.
+* [thoughts](/thoughts/index.md) - Random other thoughts
 
 #### whoami
 
