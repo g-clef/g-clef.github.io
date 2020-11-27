@@ -81,10 +81,10 @@ random shitposts on Twitter, how much of our industry conversation is just talki
 quite a lot. 
 
 As for doing things that are counter-productive, but signal a lot to each other, that behavior is all over the place
-in security: penetration tests (rarely a useful model of how companies are actually hacked, but a good way to spend scarce 
-resources), vulnerability/CVE counts (rarely accurate), even Capture the Flag competitions (often 
-challenge tech trivia knowledge over teaching hacking skill or defensive skill). We have countless ways to say to 
-each other "look how leet I am" that don't make a single difference outside our industry.
+in security: penetration tests (unit test of security controls, but not how companies are actually hacked), 
+vulnerability/CVE counts (rarely accurate), even Capture the Flag competitions (prioritises tech trivia knowledge 
+over hacking skill or defensive skill). We have countless ways to say to each other "look how leet I am" that don't 
+make a single difference outside our industry.
 
 So what to do? I don't have advice for others, aside from the general recommendation that you grab the book and 
 give it a think yourself. Personally, I'm going to be attempting a lot more outreach to folks who don't necessarily 
