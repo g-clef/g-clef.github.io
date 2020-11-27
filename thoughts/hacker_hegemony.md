@@ -1,14 +1,13 @@
 # Hacker Hegemony
 
 Last year, in a fit of revolutionary zeal, I read a book called 
-[The Hegemony How-To](https://www.amazon.com/Hegemony-How-Radicals-Jonathan-Smucker/dp/1849352542) by 
-Jonathan Smucker. If you haven't heard of it, it's a book by one of the figures in the Occupy Wall Street 
-movement, about what he learned from that movement and what he thought left-wing political movements overall could 
-learn from left-wing advocacy's successes and failures, including Occupy. 
+[The Hegemony How-To](https://www.akpress.org/hegemonyhowto.html) by Jonathan Smucker. It's a book by one of the 
+figures in the Occupy Wall Street movement, about what he learned from that movement and what he thought left-wing 
+political movements overall could learn from previous movements' successes and failures, including Occupy. 
 
 In particular, an early chapter of the book called the "Life of the Oppositional Group" really struck me. It talks 
 about "the internal life of social movement groups" as a way to start to understand how they work and why they behave 
-the way they do. I like knowing how things work and why they work that way, that's why I feel such affinity to the 
+the way they do. I like knowing how things work and why they work that way - that's why I feel such affinity to the 
 "hacker" world: knowing how stuff works is big part of the security and hacker ethos. So, I felt like this chapter
 was going to be one of my highlights of the book. The thing is, as I read it, I got more and more uncomfortable. 
 It's not that I thought Smucker was wrong - I have no basis to say if he's wrong about political groups - I felt like
@@ -40,7 +39,7 @@ This joy comes with a few problems, though.
 
 The first problem it causes is that people whose identity is tied to the group will start taking actions to reinforce 
 that identity, even if it doesn't further the group's stated goals. Smucker talks about working with 
-protest groups in Washignton D.C., and how the protest actions gradually disconnected from their actual effectiveness, 
+protest groups in Washington, D.C., and how the protest actions gradually disconnected from their actual effectiveness 
 and instead focused on how they reflected commitment to the group:
 > Coming to a protest was good. Taking an arrest was better. But the pinnacle of resistance was to physically hammer on 
 > part of the arsenal of empire. I reflected on how some people granted me more respect and attention ... the further I 
@@ -48,13 +47,12 @@ and instead focused on how they reflected commitment to the group:
 > than to innovate and be critical.
 
 Even as this happened, the group members weren't considering how those actions looked to the people they were trying 
-to actually influence (e.g. the general public), and whether their actions actually brought them closer to their goal. 
+to actually influence (e.g., the general public), and whether their actions actually brought them closer to their goal. 
 > Often the only people who learn of the actions are a small number of military personnel and the small, 
-> already-sympathetic readership of these communities' newsletters and websites. 
-
-> dramatic and temporary disruptions of the dominant culture's representations (e.g., smashing up a business district)
-> have sometimes been reflected back to millions of people through the mass media, but the public's perceived meaning
-> of the action differs severely from the actor's intended or self-understood meaning.
+> already-sympathetic readership of these communities' newsletters and websites. ... [D]ramatic and temporary disruptions 
+> of the dominant culture's representations (e.g., smashing up a business district) have sometimes been reflected 
+> back to millions of people through the mass media, but the public's perceived meaning of the action differs severely 
+> from the actor's intended or self-understood meaning.
 
 The second problem is that identity-based groups become very inward-facing, and may 
 appear hostile to new members. This can also show up as gate-keeping and as special language 
@@ -62,19 +60,18 @@ or terms that the group insists on using differently than the rest of society. A
 group talking mostly to itself. Smucker quotes Frederick Miller:
 > members may develop such strong cohesion among themselves that outsiders become unwelcome. In prolonged interaction,
 > a group may develop an ideology that is internally coherent but virtually unintelligible to recruits and outsiders 
-> who do not share all of the member's assumptions.
+> who do not share all of the member's assumptions. ... [S]uch groups have little chance of growing or increasing their 
+> influence. Most strikingly, they may lose interest in such things, contenting themselves with maintaining their 
+> encapsulated existence.
 
-> such groups have little chance of growing or increasing their influence. Most strikingly, they may lose interest in 
-> such things, contenting themselves with maintaining their encapsulated existence.
-
-As I read this chapter (especially this last section), I kept coming back to how strongly I felt the parallels were 
+As I read this chapter (especially this last section), I kept coming back to how strong I felt the parallels were 
 to the security world. "Hacker" feels to me to be as much an identity as "anti-war protestor", with all the positive
 (feeling of belonging, unity of internal and external identity, etc) and negative (talking to ourselves, taking actions
 that only the group cares about) aspects of that. Personally, part of the reason I keep coming to the smaller conferences
 like Shmoocon is the sense of community and "belonging" that come with the conference. 
  
 I was especially struck by this when talking with someone who was new to the industry. They were looking through the 
-Infosec memes accounts on Twitter to try to get a feel for the industry, and were absolutely baffled. They were 
+Infosec memes accounts on Twitter to try to get a feel for the industry and were absolutely baffled. They were 
 struggling to understand what the jokes were even about, never mind why they would be funny. They felt like they 
 needed 5 years of experience in the industry to even get the jokes. If it takes years of experience to even get the 
 random shitposts on Twitter, how much of our industry conversation is just talking to ourselves? I think it's probably
