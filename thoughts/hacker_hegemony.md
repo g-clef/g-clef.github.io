@@ -4,7 +4,7 @@ Last year, in a fit of revolutionary zeal, I read a book called
 [The Hegemony How-To](https://www.amazon.com/Hegemony-How-Radicals-Jonathan-Smucker/dp/1849352542) by 
 Jonathan Smucker. If you haven't heard of it, it's a book by one of the figures in the Occupy Wall Street 
 movement, about what he learned from that movement and what he thought left-wing political movements overall could 
-learn from Occupy's successes and failures. 
+learn from left-wing advocacy's successes and failures, including Occupy. 
 
 In particular, an early chapter of the book called the "Life of the Oppositional Group" really struck me. It talks 
 about "the internal life of social movement groups" as a way to start to understand how they work and why they behave 
@@ -22,7 +22,7 @@ found it hard to read. If you fight through that, I think the reward is worth it
 One of the central points of the internal-life chapter is that political organizations can become more than just a 
 group of people tied together by a political goal - the group becomes part of its member's identities. As people
 get more involved in the organization, they stop seeing themselves as a regular person and start seeing themselves through 
-the lens of the group itself. For example, a peace-loving person would stop being "a regular person who doesn't like 
+the lens of the group itself. A peace-loving person would stop being "a regular person who doesn't like 
 war" and instead label themselves "an anti-war protestor". Membership in the group becomes part of the participant's 
 identity, and when it does, people feel really good about it. For example, for members of the "Student Nonviolent
 Coordinating Committee" (SNCC): 
@@ -39,7 +39,7 @@ The group becoming a person's identity can happen for totally understandable rea
 This joy comes with a few problems, though.
 
 The first problem it causes is that people whose identity is tied to the group will start taking actions to reinforce 
-that identity, even if it doesn't further the group's stated goals. For example, Smucker talks about working with 
+that identity, even if it doesn't further the group's stated goals. Smucker talks about working with 
 protest groups in Washignton D.C., and how the protest actions gradually disconnected from their actual effectiveness, 
 and instead focused on how they reflected commitment to the group:
 > Coming to a protest was good. Taking an arrest was better. But the pinnacle of resistance was to physically hammer on 
@@ -48,11 +48,9 @@ and instead focused on how they reflected commitment to the group:
 > than to innovate and be critical.
 
 Even as this happened, the group members weren't considering how those actions looked to the people they were trying 
-to actually influence (e.g. the general public). 
+to actually influence (e.g. the general public), and whether their actions actually brought them closer to their goal. 
 > Often the only people who learn of the actions are a small number of military personnel and the small, 
 > already-sympathetic readership of these communities' newsletters and websites. 
-
-...
 
 > dramatic and temporary disruptions of the dominant culture's representations (e.g., smashing up a business district)
 > have sometimes been reflected back to millions of people through the mass media, but the public's perceived meaning
@@ -65,25 +63,32 @@ group talking mostly to itself. Smucker quotes Frederick Miller:
 > members may develop such strong cohesion among themselves that outsiders become unwelcome. In prolonged interaction,
 > a group may develop an ideology that is internally coherent but virtually unintelligible to recruits and outsiders 
 > who do not share all of the member's assumptions.
-...
+
 > such groups have little chance of growing or increasing their influence. Most strikingly, they may lose interest in 
 > such things, contenting themselves with maintaining their encapsulated existence.
 
 As I read this chapter (especially this last section), I kept coming back to how strongly I felt the parallels were 
 to the security world. "Hacker" feels to me to be as much an identity as "anti-war protestor", with all the positive
 (feeling of belonging, unity of internal and external identity, etc) and negative (talking to ourselves, taking actions
-that only the group cares about) aspects of that.
+that only the group cares about) aspects of that. Personally, part of the reason I keep coming to the smaller conferences
+like Shmoocon is the sense of community and "belonging" that come with the conference. 
  
 I was especially struck by this when talking with someone who was new to the industry. They were looking through the 
 Infosec memes accounts on Twitter to try to get a feel for the industry, and were absolutely baffled. They were 
 struggling to understand what the jokes were even about, never mind why they would be funny. They felt like they 
 needed 5 years of experience in the industry to even get the jokes. If it takes years of experience to even get the 
-random shitposts on twitter, how much of our industry conversation is just talking to ourselves? I think it's probably
+random shitposts on Twitter, how much of our industry conversation is just talking to ourselves? I think it's probably
 quite a lot. 
 
-This leaves an obvious question of what to do about it. I don't have advice for others, aside from recommending that
-you grab the book and give it a think yourself. Personally, I'm going to be attempting a lot more outreach to folks
-who don't necessarily have the technical background I do. This blog & site in general are part of my efforts in that
+As for doing things that are counter-productive, but signal a lot to each other, that behavior is all over the place
+in security: penetration tests (rarely a useful model of how companies are actually hacked, but a good way to spend scarce 
+resources), vulnerability/CVE counts (rarely accurate), even Capture the Flag competitions (often 
+challenge tech trivia knowledge over teaching hacking skill or defensive skill). We have countless ways to say to 
+each other "look how leet I am" that don't make a single difference outside our industry.
+
+So what to do? I don't have advice for others, aside from the general recommendation that you grab the book and 
+give it a think yourself. Personally, I'm going to be attempting a lot more outreach to folks who don't necessarily 
+have the technical background I do. This blog & site in general are part of my efforts in that
 direction. Once conferences start up again (as of this writing everything's shut due to covid-19), I may also go to 
 fewer security conferences and substitute general technical conferences instead - while I like belonging to the group,
 the only way to not be insular is to talk to people outside the group.
