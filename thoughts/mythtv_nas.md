@@ -22,7 +22,6 @@ on the NAS. This is fairly easily done:
     2. Highlight on the Volume you want to shrink to make space, right-click, and select "Manage"
     3. Click "Resize Volume" and set a new (smaller, assumedly) value for the volume you're shrinking to make space for
      the MythTv volume
-    
  2. In "Storage and Snapshots" create a new volume, and name it whatever you like
  3. in the File Station, make a folder in the new volume to store MythTV's files
 
