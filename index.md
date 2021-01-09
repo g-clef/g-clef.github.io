@@ -5,12 +5,26 @@ fanciest lab out there, but it has just enough idiosyncracies, and life has caug
 process turned into a saga of its own. This wouldn't have been the first time a rebuild turned into an RPG-level 
 quest, but *this* time was different - this time I took notes. These are those notes.
 
-* [but why?](/why.md) - Why I rebuilt it, and what it used to be
-* [hardware & OS](/lab/hardware.md) - What hardware I'm using, how I've got it set up, and any special OS configurations
-* [containers](/lab/lxd.md) - The container system I'm using (LXC/LXD), how I got it set up
-* [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed
-* [projects](/projects/index.md) - The fun part: the actual projects I'm working on in the lab.
-* [thoughts](/thoughts/index.md) - Random other thoughts
+* About the lab (setup, etc)
+  
+  * [but why?](/why.md) - Why I rebuilt it, and what it used to be
+
+  * [hardware & OS](/lab/hardware.md) - What hardware I'm using, how I've got it set up, and any special OS configurations
+
+  * [containers](/lab/lxd.md) - The container system I'm using (LXC/LXD), how I got it set up
+
+  * [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed
+
+* projects (the stuff I'm doing in the lab)
+
+  * coming soon 
+
+* Other stuff:
+  
+  * [Hacker Hegemony](/thoughts/hacker_hegemony.md) - Thoughts from reading the Hegemony Howto, and how it
+    relates to the hacker world.
+  
+  * [MythTV on a NAS](/thoughts/mythtv_nas.md) - Notes on setting up a MythTV backend on a QNAP NAS
 
 #### whoami
 
