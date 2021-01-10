@@ -17,7 +17,7 @@ backend. The frontend can be a simple ubuntu desktop with the mythtvfrontend app
 
 To manage pack-rat/digital hoarding tendencies, I decided to make the actual disk storage for mythtv a dedicated volume
 on the NAS. This is fairly easily done:
- 1.If you already assigned all the space on the drives in the NAS, and need to make space:
+ 1. If you already assigned all the space on the drives in the NAS, and need to make space:
     1. Open "Storage and Snapshots", and go to Storage->Storage/Snapshots.
     2. Highlight on the Volume you want to shrink to make space, right-click, and select "Manage"
     3. Click "Resize Volume" and set a new (smaller, assumedly) value for the volume you're shrinking to make space for
