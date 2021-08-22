@@ -5,9 +5,10 @@
 For those of you who don't want to read all the discussion:
  * Servers: 2x Dell r710's (actually google search boxes, but they're just rebranded R710's)
    * 1 RAID-1 for OS, 2x RAID-1's for container storage.
- * NAS: Drobo B810N
-   * Drives: Some same as in the Servers, others I scrounged from systems I had leftover from previous iterations
- * Network: Totally flat - everything's on a $50 switch
+ * NAS: Synology DS1821+
+   * Added 32 GB RAM
+   * 8x 6TB drives
+ * Network: All in one subnet
  * OS: Vanilla Ubuntu 18.04 LTS.
 
 #### Servers
@@ -41,20 +42,26 @@ and hard drives for the servers.
 
 #### NAS Storage
 
-For all long-term/persistent storage I'm using a Drobo B810N as a NAS. Its handling of different drive sizes makes it a 
-good candidate for a patched-together lab like this...I grabbed the hard drives I had available, slapped them into it, 
-and didn't spend very long thinking about what size they were.
+Since I want to treat the servers as basically disposable, all the actual data needs to live somewhere else. 
+That's where the NAS comes in. In this case, the NAS I'm using is a Synology DS1821+. I splurged and bought the
+32GB RAM expansion and 8x 6TB drives for it, so I'm not concerned about running out of space. The NAS itself
+is configured with 2 pools of drives, one for the actual lab storage, and one for image storage for Virtual 
+Machines. Part of my reason for going with something like the Synology over teh previous Drobo was the ability 
+to run VMs on the NAS itself, which will turn out to be useful later.
 
-The only unusual thing I'm doing with the Drobo is that I installed the NFS add-on to allow the Drobo to offer its 
-shares as NFS shares as well as CIFS. With that one sentence I probably just lost the respect of a large number of the 
-security people reading this, since NFS is uniquely awful from a security point of view. Allow me to try to reclaim 
-some of my lost honor [here](NFS.md).
+When I originally started this I was using a Drobo B810N for storage. That worked, but had some limitations, and
+it appears that Drobo is slowly losing support capability (they've dramatically pared back their product line, not 
+released anything new for a while, and apparently their support is getting non-responsive). Also, after a power
+failure, the Drobo wanted me to fsck the hard drives on it, which is a problem since that is almost 
+impossible to do safely (there is no procedure supported by Drobo to fsck the drives on one of their NAS'. I 
+feel like that's a major oversight). I wasn't feeling terribly good about the long term of the Drobo, so I 
+replaced it.
 
 
 #### Hard drives
 
 Hard drives were the most expensive part of this whole project. The Google boxes can hold 6 SAS drives each, 
-and the Drobo another 8. The cost of 1-TB (or more) drives adds up fast when you're buying 20 of them. I 
+and the NAS another 8. The cost of 1-TB (or more) drives adds up fast when you're buying 20 of them. I 
 scrounged what I could from other systems I'd had lying around over the years (especially the previous iterations
 of the lab), but eventually I just had to suck it up and buy some hard drives.
 
@@ -89,9 +96,8 @@ do was to pair the physicaldrives to be in RAID-1 groups physically near each ot
 #### Network
 
 I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
-I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch (I 
-forget the model), but nothing flashy. I think it cost $50 at Newegg. The servers are in the same broadcast domain,
-no fancy routing between them.
+I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch, 
+but there are no fancy switching or routing requirements here. 
 
 #### OS
 
