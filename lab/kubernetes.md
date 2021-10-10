@@ -29,39 +29,51 @@ ever so slightly broken.
 
 Before I launch into the problems, it's worth noting that because this is ansible, I was trying to do all of this 
 remotely to the VM servers. I.e. I wanted my development OSX box to be able to run the ansible script and provision 
-the whole cluster automatically. I admit, this is not possible with juju, so I'm setting a higher bar for ansible
-than I did with juju...I feel like ansible should be capable of passing this bar, however.
+the whole cluster automatically. I admit, this is not something I was dong with juju, so I'm setting a higher bar for 
+ansible than I did with juju...I feel like ansible should be capable of passing this bar, however - managing remote
+servers is the whole *point* of ansible.
 
 The first way to connect to LXD in ansible is via the LXD https interface. That has the advantage only needing a URL 
-and some authentication settings. It has the disadvantage of not actually working. No matter what I tried, I couldn't get 
-this option within ansible to work, it repeatedly complained about the local LXC not being set up for remote repos. 
-This despite the fact that running LXC locally on the command line connected to the remote LXC servers without issue, 
-and the remote repo was set up and named exactly as the ansible errors were telling me it should be. I concluded 
-eventually that this was making an assumption that the LXC server was local somehow, and gave up.
+and some authentication settings. I eventually gave up on this approach as it repeatedly complains about missing 
+remotes. I strongly suspect in hindsight that it needed the `ansible_lxd_remote` value to be set (more on this below)
+in order for this to work, but by the time I'd figured that out I'd given up on the https interface entirely. (I should
+note that the documentation about this doesn't mention this setting at *all*, which is not okay.) 
 
-The second way to connect is to have ansible ssh to the LXD host like it would for any other host it's managing, 
-and run the LXD commands locally on that server. That has the advantage of meeting the assumptions about local host
-that the ansible LXD plugin seems to make, but does require you to set up ssh to the lxd VMs. This is probably fine,
-since remotely managing those boxes is probably something I should be doing anyway. 
+The second way to connect is to have ansible use the lxc shell commands. That has the advantage of meeting the 
+assumptions about local host that the ansible LXD plugin seems to make, but does require you to set up ssh to the lxd 
+VMs. This is probably fine, since remotely managing those boxes is probably something I should be doing anyway. It also
+requires you to set up lxc "remotes" for each lxc server you want to provision things on to. Be careful naming these,
+as you're going to need to use them later. 
 
-Of course, there's always a catch.
+For the record, an LXD "remote" is a connection to a remote lxd/lxc server. For this all to work you will have to
+have LXC installed locally on your system, and have connected it to your lxc/lxd cluster by running 
+`lxc remote add <name> <url> --accept-certificate --password <lxd cluster password>`.
 
-The catch is that ansible's LXD plugin does not seem to be able to handle connecting to any other hosts in a cluster.
-(See previous comment about assuming everything is running on localhost.) This is a problem if you have two or more 
-boxes in a cluster. If you just blindly create a VM on a server that's part of a cluster, there's no guarantee that 
-it will actually be run on that machine...it might get assigned to a different system in the cluster. So, if I sent 
-ansible to log into `albatross1` to provision everything, LXD might put the actually-created VM on `albatross2`. The 
-problem is that ansible's LXD plugin once again assumes everything is on localhost. So, when it asks the local LXC for 
-the details of the just-provisioned VM, and LXC on albatross1 (accurately) says "I have no host of that name" since 
-the VM is on albatross2. This causes the provisioning to fail, leaving a created-but-stopped VM on albatross2.
+Of course, there's always a catch or two.
 
-The way around that is to not use LXD's automatic load-balancing when provisioning VMs, which is a shame, but fine 
-for the moment. So when I define the VMs for the cluster, I manually assign them to each server by hand. 
+The first catch is that you have to tell ansible explicitly which LXC "remote" to connect to when running commands.
+The vast majority of LXD's documentation doesn't mention the "remote" setting, because most of their examples are set 
+up assuming that you're running this on the same host with LXD, so you will have the default "local" lxc entry. If you 
+don't set the `ansible_lxd_remote` variable for each host, then ansible will try to connect to the lxc "remote" named 
+`local`, and you'll get weird errors that say things like "This client hasn't been configured to use an LXD remote yet." 
+(An error which is super-unhelpful when you can trivially type `lxc remote list` and see them plain as day.) You will 
+need to be careful that the names of the remotes listed in `lxc remote list` match the remote names you set in the 
+ansible inventory.
 
-In the ansible inventory file, that looks like: 
+The second catch is that host provisioning, for some reason, *only* works when calling lxc locally. So you will need
+to delegate that task to be run directly on the VM servers themselves. That, of course, leads to a third catch: if 
+you provision a host in an LXD cluster, LXD may not put it on the host that you run the commands on...if there's more
+overhead available on another host in the cluster, it'll put the host there, instead. The problem here is that 
+ansible's provisioning commands ask the *local* LXC for the status of the host after it's created...and the local
+LXD won't have that host if it's created somewhere else. The way around that is to not use LXD's automatic 
+load-balancing when provisioning VMs, which is a shame, but fine for the moment. So when I define the VMs for the 
+cluster, I manually assign them to each server by hand. 
+
+In the ansible inventory file, this all looks like: 
 ```all:
   children:
     lxd_hosts:
+      hosts:
         albatross1.g-clef.net:
           ansible_user: g-clef
         albatross2.g-clef.net:
@@ -70,11 +82,13 @@ In the ansible inventory file, that looks like:
       hosts:
         lab-cluster-master-1:
           ansible_connection: lxd
-          ansible_host: albatross2.g-clef.net:lab-cluster-master-1
+          ansible_lxd_remote: albatross2
+          delegated_to: albatross2.g-clef.net
 ```
 The special thing to note here is that I've defined `lxd_hosts` as a group of its own, and given ansible a way to
-connect to those hosts themselves (ssh via username & key). Then, in each host, I define the `ansible_host` to be the
-server I want to run the VM on and then the VM name, like `<servername>:<vmname>`.
+connect to those hosts themselves (ssh via username & key). Then, in each host, I define the `ansible_lxd_remote` 
+to be the server I want to run the VM on. **NOTE** this name is the name that you see for this host in `lxc remote list`.
+That may not be the same as its hostname or full network name. You'll also see a `delegated_to` entry. That's for
 
 Then, in the actual role definition, I also had to make the worker/master tasks look like: 
 ```
@@ -103,3 +117,31 @@ has all my ansible build scripts for this effort (including the LXC policies, wh
 
 ### Kubespray
 
+The next thing to do was to follow the [kubespray integration instructions](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/integration.md)
+to pull the instructions to deploy the cluster into the provisioning settings. Because I'm running this on a bare 
+metal cluster, I added the metalLB pod.
+
+Kubespray's recommended way of including the kubespray commands with an existing ansible playbook didn't work for me.
+The problem seemed to be that they tell you simply `include` the kubespray `cluster.yml` file, which is dynamically 
+adding it to your playbook...but that cluster.yml file has lines in it that say `import_playbook`, which is statically 
+linking them, and ansible did not like it when I tried to mix and match like that. 
+
+In the end, I just left the `cluster.yml` where it was, and called it directly with my own inventory file. Instead, I
+copied the `all` and `k8s_cluster` group_vars folders over to my inventory, renamed the "all.yml" file in the `all`
+directory to `kubespray.yml`, and made that a group which I assigned all the nodes to. In the k8s_cluster group_vars 
+directory, I only brought in the `addons`, `k8s-cluster` and `k8s-net-calico` yaml files. I modified addons to 
+enable metallb, and helm, and modified k8s-cluster to have it match the cluster-name.
+
+NOTE: You may be tempted to install ansible independently of kubespray. Don't. Kubespray at the moment requires a very
+small window of versions of ansible. If you leave that out, it will complain and refuse to run. I've seen tickets that 
+claim you can override that without issue, but again, I don't want to maintain ansible/kubespray, I just want to use it.
+
+NOTE 2: It may be tempting to run a different version of ubuntu underneath the images (18.04 vs 20.04). This is a mistake.
+The kubespray install process will try to install kernel modules in the VMs, which won't have the same kernel version 
+installed as what they're actually running, so the kernel module installation will fail. This also means you have to 
+make sure the right kernel modules are available on the core VM servers with the LXC policy
+
+NOTE 3: I was tempted to change the container runtime to containerd or cri-o, after all the noise about kubernetes
+eventually deprecating docker. However [this ticket](https://github.com/kubernetes-sigs/kubespray/issues/6979) implies
+that if you do that, etcd has to be installed locally (instead of inside the container framework), which I'd frankly
+rather avoid if I can. 
