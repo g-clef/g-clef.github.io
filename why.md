@@ -41,3 +41,20 @@ Add to that the occasional hardware failure on the small boxes, Ubuntu dist-upgr
 single time I tried, and I found I was spending a lot of time just running in place.
 
 That sucked. So...rebuild time.
+
+## Why not just go to the cloud?
+
+Since I want to spend more time with family but still have a lab, why not outsource the whole problem to 
+aws/google/azure? I'm not doing that for a few reasons:
+ 1) Trust - Part of the point of this cluster is that I'm doing research on malware. While the various cloud providers 
+all *say* that they won't reach inside customer datasets, at my scale I have no monetary or reputational weight to 
+make sure that stays true. I've already gotten emails from my 'net provider telling me that they noticed my malware 
+scraping traffic, and were concerned one of my systems had been hacked. The last thing I need is for an AWS support 
+person to get one of those emails, look at my S3 bucket-o-malware, freak out, and delete multiple years of work at one 
+swoop. 
+ 2) Cost - While buying servers and drives is expensive, it's a cost that gets amortized over a *long* time. I'm fairly
+convinced that the long term cost of running my own lab is lower than it would be if I were running it in the cloud, 
+but much spikier. I (probably) wouldn't get a $4k bill from AWS in one month, the way I did when I was buying a NAS and
+a bunch of drives for it, but I wouldn't be at all surprised if my lab equivalent in AWS would cost that over the 
+course of a year or so. I'm very lucky to have the income to be able to absorb the one-time cost spikes so that I can 
+save more in the long run.
