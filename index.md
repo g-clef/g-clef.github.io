@@ -8,7 +8,6 @@ quest, but *this* time was different - this time I took notes. These are those n
 - About the lab (setup, etc)
   - [but why?](/why.md) - Why I rebuilt it, and what it used to be
   - [hardware & OS](/lab/hardware.md) - What hardware I'm using, how I've got it set up, and any special OS configurations
-  - [containers](/lab/lxd.md) - The container system I'm using (LXC/LXD), how I got it set up
   - [kubernetes](/lab/kubernetes.md) - How I've got kubernetes installed
   - [smb](/lab/smb.md) - Some notes on connecting to SMB shares from inside kubernetes.
 
