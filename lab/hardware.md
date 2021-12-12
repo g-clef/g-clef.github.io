@@ -46,8 +46,8 @@ Since I want to treat the servers as basically disposable, all the actual data n
 That's where the NAS comes in. In this case, the NAS I'm using is a Synology DS1821+. I splurged and bought the
 32GB RAM expansion and 8x 6TB drives for it, so I'm not concerned about running out of space. The NAS itself
 is configured with 2 pools of drives, one for the actual lab storage, and one for image storage for Virtual 
-Machines. Part of my reason for going with something like the Synology over teh previous Drobo was the ability 
-to run VMs on the NAS itself, which will turn out to be useful later.
+Machines that will run directly on the NAS. Part of my reason for going with something like the Synology over the 
+previous Drobo was the ability to run VMs on the NAS itself. (more on that when I talk about running Prefect)
 
 When I originally started this I was using a Drobo B810N for storage. That worked, but had some limitations, and
 it appears that Drobo is slowly losing support capability (they've dramatically pared back their product line, not 
