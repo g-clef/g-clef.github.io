@@ -13,6 +13,7 @@ quest, but *this* time was different - this time I took notes. These are those n
 
 - projects (the stuff I'm doing in the lab)
   - [malwarETL](/projects/malwarETL.md) - a kubernetes-based system to collect and analyse malicious software. 
+  - [Synthetic TI reports](/projects/Synthetic-TI.md) - Generating fake Threat Intelligence reports with Machine Learning.
 
 - Other stuff:
   - [Hacker Hegemony](/thoughts/hacker_hegemony.md) - Thoughts from reading the Hegemony Howto, and how it
