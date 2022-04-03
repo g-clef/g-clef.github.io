@@ -1,11 +1,13 @@
 # Synthetic Threat Intelligence Reports
 
-## TL;DR
-
-I taught a Machine Learning Language model to write Infosec Threat Intelligence reports. It...worked, I guess - the 
-final result from GPT2 was surprisingly understandable, but still not good enough to actually call a real "report". It 
-was still recognizable English, which I think is super-interesting. On the way there, though, I had some entertaining 
+I taught two Machine Learning Language models to write Infosec Threat Intelligence reports. It...worked, I guess - the
+final result from GPT2 was surprisingly understandable, but still not good enough to actually call a real "report". It
+was still recognizable English, which I think is super-interesting. On the way there, though, I had some entertaining
 failures.
+
+## Intro
+
+### TL;DR
 
 If you just want to skip to the results, the "best" (as in closest to a real report) is here: 
 https://gist.github.com/g-clef/8ea6b388a931f570615fd55b3fbbefe3
@@ -14,14 +16,12 @@ The funniest one (the other definition of "best") is here: https://twitter.com/g
 
 The code that does all this is here: https://github.com/g-clef/synthetic-ti-reports
 
+### Why would you want to do this?
 
-## WTF?
-
-I'm sure you've seen the joke posts that say things like "I made an AI watch 200 hours of Friends, then asked it to
-write a script. Here's what it said." Those are cute, but they're a reflection of a really interesting part of Machine 
-Learning that's artificially generating text, music, pictures, etc. (I refuse to call it "content.") The joke is 
-that the machine-generated words are hilariously *close* to real text, but wrong in funny ways. That's often true,
-but it also misses the point - the fact that an ML algorithm's output is understandable *at* *all* is amazing. 
+There's a part of Machine Learning that's using ML to generate text, music, pictures, etc. (I refuse to call it 
+"content.") This machine-generated text is sometimes hilariously *close* to real text, but wrong in funny ways. 
+The thing is, I think joking about it misses the point - the fact that an ML algorithm's output is understandable 
+*at* *all* is amazing. 
 
 I find these generative algorithms fascinating, and wanted to try my hand at them. Figuring my best first target would
 be a field I'm already in, I decided to try to generate artificial Threat Intelligence (TI) reports. They seemed like the 
@@ -34,7 +34,7 @@ In theory, the only thing I needed to do was collect a bunch of TI reports, feed
 Language model and click "go".
 
 
-## Where'd the data come from?
+### Where'd the data come from?
 
 Before doing any machine learning, you need data for the algorithm to learn from. In this case, I wanted lots of 
 TI reports. Luckily, a pair of Github projects are collecting them already: 
@@ -50,24 +50,24 @@ like to run it yourself, it's here: https://github.com/g-clef/ThreatIntelCollect
 that it runs  in a [malwarETL](/projects/malwarETL.md) k8s cluster, since that's the cluster I have, so it has some 
 idiosyncracies relevant to my setup.
 
-Before going further, I should talk about bias: there is a potential bias in this dataset right off the top: If those 
+Before going further, I should talk about bias. There is a potential bias in this dataset right off the top: If those 
 two projects don't pull in a report, my dataset won't have it, which means the ML model can't learn from it. While I 
 confess I haven't checked, the TI field has lots of startup companies putting out reports to prove they know what 
 they're doing, so I would not be at all surprised if these projects missed some. Assuming that's the case, that means 
 this dataset probably isn't a complete view of the TI report landscape, so it's not safe to use this data to make 
 industry-wide conclusions about TI reports. For the use-case of teaching an ML model to ape human reporting, though, 
 that's less of an impediment. It does mean that the eventual model may miss some jargon or examples that it would 
-otherwise get, and may bias towards some vendors, especially if those vendords are over-represented in the dataset,
+otherwise get, and may bias towards some vendors, especially if those vendors are over-represented in the dataset,
 but for my purposes that's acceptable.
 
 
-## What did I do this all on?
+### What did I do this all on?
 
 None of this took a lot of firepower. The hardware I ran this on is my old (like 10-year-old) gaming rig, with 12 GB
 of RAM, but I updated the video card to an NVIDIA RTX2070Super. While those are hard to find at the moment (f crypto 
 mining), when I got it they were solidly middle of the road, running about $600.
 
-To install fastai and the like on that rig, I put this all in a python virtual environment & did:
+To install FastAI and the like on that rig, I put this all in a python virtual environment & did:
 ```
 python3 -m venv .venv
 source .venv/bin/activate
@@ -76,9 +76,9 @@ pip3 install fastai
 pip3 install transformers
 pip3 install jupyterlab
 ```
-So if I ran `jupyter lab` while the venv was active, I'd get a full fastai & transformers development environment. 
+So if I ran `jupyter lab` while the venv was active, I'd get a full FastAI & transformers development environment. 
 
-## Why would this even have a hope in hell of working?
+### Why would this even have a hope in hell of working?
 
 The core idea for this all is the idea of fine-tuning a pre-trained model. The assumption behind it is that the English
 language is somewhat generalizable, and so you can transfer the basics of language from one model to another. In other 
@@ -88,7 +88,7 @@ training passes over my specialty text to teach it the specifics of the particul
 have the basics of how English works from the pre-training. 
 
 
-## The gory details
+## The Gory Details
 
 ### Preparing the data
 
@@ -110,7 +110,7 @@ get to just the text of the report. That seemed to matter less for some models t
 The actual code to run in Prefect is in the [Synthetic-ti-reports](https://github.com/g-clef/synthetic-ti-reports) github
 repo, under the "prefect" directory. 
 
-### Attempt #1 - LSTM
+## Attempt #1 - LSTM
 
 Before going into the fancy models that make headlines, I decided to start with a language model called an
 [LSTM](https://en.wikipedia.org/wiki/Long_short-term_memory), which stands for Long Short-Term Memory. 
@@ -201,13 +201,18 @@ to see if the accuracy would improve with more training. It did not.
 I stopped working with the LSTM here, because I felt like I'd proven the point: it's possible to do this, on my home 
 setup, and the simple results were...okay. I wasn't expecting perfection, didn't get it, and that's okay. 
 
-### Attempt #2 - GPT-2
+## Attempt #2 - GPT-2
 
 Having now proven I can do this, and built up a reasonable pipeline to generate the data, I decided it was time to 
 try one of the headline-grabbing models, to see what I could get it to do. Getting it to work turned out to be a much
 bigger job than the LSTM.
 
-At first, I mostly followed the [tutorial on using GPT2 from fastai](https://docs.fast.ai/tutorial.transformers.html), 
+In this case, I wanted to try [GPT2](https://en.wikipedia.org/wiki/GPT-2), since I've heard a lot about its ability to
+create very accurate generated text. The Generative Pre-Trained Transformer (GPT2) is a machine learning model with 
+very large number of parameters (more than a billion), which was trained on thousands of unpublished novels to give it
+a base level of accuracy on the English language.
+
+At first, I mostly followed the [tutorial on using GPT2 from FastAI](https://docs.fast.ai/tutorial.transformers.html), 
 which was mostly fine, though I did have to modify a few things right from the start: 
   1) The tutorial is expecting you to give it a csv with each line being a new document with text to learn. In my case, 
 each "document" was a separate file, so I had to read them all into RAM, put them in a python List, and turn that list
