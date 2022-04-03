@@ -110,7 +110,7 @@ get to just the text of the report. That seemed to matter less for some models t
 The actual code to run in Prefect is in the [Synthetic-ti-reports](https://github.com/g-clef/synthetic-ti-reports) github
 repo, under the "prefect" directory. 
 
-## Attempt #1 - LSTM
+### Attempt #1 - LSTM
 
 Before going into the fancy models that make headlines, I decided to start with a language model called an
 [LSTM](https://en.wikipedia.org/wiki/Long_short-term_memory), which stands for Long Short-Term Memory. 
@@ -201,7 +201,7 @@ to see if the accuracy would improve with more training. It did not.
 I stopped working with the LSTM here, because I felt like I'd proven the point: it's possible to do this, on my home 
 setup, and the simple results were...okay. I wasn't expecting perfection, didn't get it, and that's okay. 
 
-## Attempt #2 - GPT-2
+### Attempt #2 - GPT-2
 
 Having now proven I can do this, and built up a reasonable pipeline to generate the data, I decided it was time to 
 try one of the headline-grabbing models, to see what I could get it to do. Getting it to work turned out to be a much
@@ -336,7 +336,7 @@ rather than treating them as words one-by-one.
 [That worked *quite* well](https://gist.github.com/g-clef/8ea6b388a931f570615fd55b3fbbefe3). Well enough that I called 
 it a success and stopped. 
 
-#### Special stuff for GPT2
+### Special stuff for GPT2
 
 In short, here's what I had to do outside of the FastAI tutorial to get GPT2 to work with my setup:
  * Pre-process the PDFs to turn them into text files. 
@@ -345,3 +345,8 @@ In short, here's what I had to do outside of the FastAI tutorial to get GPT2 to 
  * When generating text, use `temperature`, multiple return sequences, and `top_p` sampling to avoid the generation 
 falling into a repeated pattern.
 
+# Conclusions
+
+This was fun, and I'm quite impressed with the realism of the GPT2-generated text. I'm also surprised at how easy it was
+to run on my fairly small setup. Once I'd finished finding the right things to do, the training only took a few minutes,
+and the generation only a few more, on a video card that cost me only about $600. 
