@@ -1,10 +1,11 @@
 # Synthetic Threat Intelligence Reports
 
-## TLDR
+## TL;DR
 
-I taught a Machine Learning Language model to write Infosec Threat Intelligence reports. It...worked? The final result
-from GPT2 was surprisingly understandable, but still not good enough to actually call a real "report". It was still
-recognizable English, which I think is super-interesting. On the way there, though, I had some entertaining failures.
+I taught a Machine Learning Language model to write Infosec Threat Intelligence reports. It...worked, I guess - the 
+final result from GPT2 was surprisingly understandable, but still not good enough to actually call a real "report". It 
+was still recognizable English, which I think is super-interesting. On the way there, though, I had some entertaining 
+failures.
 
 If you just want to skip to the results, the "best" (as in closest to a real report) is here: 
 https://gist.github.com/g-clef/8ea6b388a931f570615fd55b3fbbefe3
@@ -26,8 +27,8 @@ I find these generative algorithms fascinating, and wanted to try my hand at the
 be a field I'm already in, I decided to try to generate artificial Threat Intelligence (TI) reports. They seemed like the 
 perfect target: a somewhat specialized jargon, so it would be really obvious if the ML model had actually learned to 
 speak the lingo, and a fairly large corpus of English-language samples to train off of. I already had an ML setup at 
-home (a gaming rig with an RTX2070 Super), and could get the TI samples (more on this below), so this seemed like an 
-achieveable goal.
+home (more on this below), and could get the TI samples (more on this below, too), so this seemed like an achieveable 
+goal.
 
 In theory, the only thing I needed to do was collect a bunch of TI reports, feed them to a pre-trained Machine Learning 
 Language model and click "go".
