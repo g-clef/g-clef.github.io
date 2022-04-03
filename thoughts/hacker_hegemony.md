@@ -77,11 +77,13 @@ needed 5 years of experience in the industry to even get the jokes. If it takes 
 random shitposts on Twitter, how much of our industry conversation is just talking to ourselves? I think it's probably
 quite a lot. 
 
-As for doing things that are counter-productive, but signal a lot to each other, that behavior is all over the place
-in security: penetration tests (unit test of security controls, but not how companies are actually hacked), 
-vulnerability/CVE counts (rarely accurate), even Capture the Flag competitions (prioritises tech trivia knowledge 
-over hacking skill or defensive skill). We have countless ways to say to each other "look how leet I am" that don't 
-make a single difference outside our industry.
+As for doing things that may be counter-productive, but signal a lot to each other, that behavior is all over the place
+in security: penetration tests that turn into unit tests of security controls, vulnerability/CVE counts that turn into
+ego-measuring contests, even Capture the Flag competitions that prioritise tech trivia knowledge over hacking skill or 
+defensive skill. We have countless ways to say to each other "look how leet I am" that don't make a single difference 
+outside our industry. (Later edit: this paragraph has bugged me since I wrote it. I'm not saying that the above are 
+useless all the time, I know folks who really enjoy and learn from CTFs, for example, but they get used for posturing 
+and signaling a *lot*, which is my main focus here: the social credibility side of these activities.)
 
 So what to do? I don't have advice for others, aside from the general recommendation that you grab the book and 
 give it a think yourself. Personally, I'm going to be attempting a lot more outreach to folks who don't necessarily 
