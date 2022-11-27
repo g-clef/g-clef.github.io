@@ -59,3 +59,13 @@ but much spikier. I (probably) wouldn't get a $4k bill from AWS in one month, th
 a bunch of drives for it, but I wouldn't be at all surprised if my lab equivalent in AWS would cost that over the 
 course of a year or so. I'm very lucky to have the income to be able to absorb the one-time cost spikes so that I can 
 save more in the long run.
+
+## Why do this all a *second* time?
+
+The notes above cover why I did it the first time, why would I go to the trouble of rebuilding it again?
+
+Frankly, while the Google Search boxes it ran on for the first version of the lab were cool (and very colorful),
+they use a *lot* of power. The [picocluster](https://www.picocluster.com/products/pico-20-raspberry-pi4-8gb) 
+will have just as much processing power (frankly, more) and probably more storage space per node once I add
+USB SSDs. Overall, while the picocluster was expensive, I expect it'll pay for itself in power costs within a 
+year or so.

@@ -21,39 +21,14 @@ So, I replaced `juju + charmed-k8s` with `kubespray`. My thinking there was that
 by the kubernetes project itself (or at least, closer to the core maintainers), so it was less likely (not impossible, 
 mind you) to have the fiddly bugs I was running in to. After all, I'm trying to be a *user* of k8s, not an admin of it. 
 
-I also replaced LXC/LXD with Vagrant/Virtualbox. That made it a lot easier 
+I also replaced LXC/LXD with Vagrant/Virtualbox for the google boxes, then running on metal for the picocluster.
 
-Because this is ansible, I was also trying to do all of this remotely to the VM servers. I.e. I wanted my 
+Because this is ansible, I was also trying to do all of this remotely to the nodes. I.e. I wanted my 
 development OSX box to be able to run the ansible script and provision the whole cluster automatically. I admit, 
 this is not something I was dong with juju, so I'm setting a higher bar for ansible than I did with juju...I feel 
 like ansible should be capable of passing this bar, however - managing remote servers is the whole *point* of ansible.
 
 ## How
-
-### Provisioning
-
-So, the first problem is provisioning, i.e. setting up the VMs that we'll hand to kubespray to run kubernetes on. 
-
-The default cluster you'd get from a Vagrant kubespray installation is a 3-node cluster that's behind a local 
-NAT, which will be a pain in the neck to make a multi-server cluster out of. What I want is for the VM guests 
-on each of the VM servers to all be a part of one big cluster, so VM host specific NAT pools aren't good enough. 
-
-I eventually settled on 4 vagrant files: one for masters, one for workers, for each VM server. The reason I did
-this was that I wanted to statically assign the IPs for each host, so that I could know them ahead of time 
-and set those values up in the ansible inventory. This led me to bump into a bug with Vagrant and VitualBox: 
-vagrant *really* assumes you'll leave the first interface (a dhcp-assigned host NAT) up, and it tries to use
-that interface to connect to the host to do its provisioning. The problem is that VirtualBox gives that interface
-the network default gateway, so if you want to reach the cluster by the bridged IPs, you have to add the
-default gateway out the bridged network yourself. Sadly, it's not super-easy to persist that value, so if the
-VM hosts get bounced for whatever reason, you'll lose this setting.
-
-Also, I had a lot of trouble getting VirtualBox's VM autostart system to work right on Ubuntu 18.04. It said
-it ran, autostart db entires were created for my user, but VMs were never spun up. I eventually gave up and
-wrote simple systemctl units that called "vagrant up" on each file. That's a hack, but it works to bring the
-cluster back up.
-
-You can see the full set up of this in the [malwarETL-k8s](https://github.com/g-clef/malwarETL-k8s) repository, which
-has all my ansible build scripts for this effort (including the LXC policies, which I've skipped talking about here).
 
 ### Kubespray
 

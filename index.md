@@ -1,9 +1,10 @@
 ## The obligatory blog
 
-In 2019 I made a mistake - I decided to rebuild my home lab. My home lab isn't the biggest or 
-fanciest lab out there, but it has just enough idiosyncracies, and life has caught up to me enough, that the rebuild 
-process turned into a saga of its own. This wouldn't have been the first time a rebuild turned into an RPG-level 
-quest, but *this* time was different - this time I took notes. These are those notes.
+In 2019 I made a mistake - I decided to rebuild my home lab. In 2022, I made the same mistake again. 
+My home lab isn't the biggest or fanciest lab out there, but it has just enough idiosyncracies, and 
+life has caught up to me enough, that the rebuild process is a saga of each time I do it. This 
+wouldn't have been the first time a rebuild turned into an RPG-level quest, but *this* time was 
+different - this time I took notes. These are those notes.
 
 - About the lab (setup, etc)
   - [but why?](/lab/why.md) - Why I rebuilt it, and what it used to be
