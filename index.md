@@ -25,3 +25,5 @@ different - this time I took notes. These are those notes.
 
 I'm just some guy. I've been doing Infosec since the first .com boom, which just means I've watched my 
 401k get nuked 3 times (as of this writing...could be more by the time you read this).
+
+I'm also <a rel="me" href="https://mstdn.social/@gclef">this guy</a> on Mastodon.
