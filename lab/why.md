@@ -24,7 +24,7 @@ that I couldn't count on any of the servers (big or small) for storage of data.
 ## More storage, more problems
 
 To get over the local limitations, I added a Drobo NAS to store all the data my little experiments collected. (it's now
-a Synology one, more on this in the [hardware](/lab/hardware.md)) section.)
+a Synology one, more on this in the [hardware](/lab/hardware.html)) section.)
 
 Adding the NAS was the right thing to do, but it exposed a race condition. My house has regular short power 
 outages, because the local power company is run by jerks (f&*k Pepco). When I'd lose power, 

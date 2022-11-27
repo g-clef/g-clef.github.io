@@ -25,7 +25,7 @@ total of 10 nodes (3 masters, 7 workers). This was fine, but I did run into reso
 and there wasn't an option for a 15-node picocluster. So, in the interest of giving the lab a bit of an 
 upgrade, and lowering the power at the same time, I went with the 20-node version. 
 
-Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_20_notes.md), however.
+Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_20_notes.html) , however.
 
 #### NAS Storage
 
