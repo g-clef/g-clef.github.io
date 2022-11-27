@@ -3,7 +3,7 @@
 ### TLDR
 
 For those of you who don't want to read all the discussion:
- * Nodes: one [picocluster 20H raspberry pi](One https://www.picocluster.com/products/pico-20-raspberry-pi4-8gb)
+ * Nodes: one [picocluster 20H raspberry pi](https://www.picocluster.com/products/pico-20-raspberry-pi4-8gb)
    * Added 500GB SSDs to each node.
  * NAS: Synology DS1821+
    * Added 32 GB RAM
@@ -25,6 +25,7 @@ total of 10 nodes (3 masters, 7 workers). This was fine, but I did run into reso
 and there wasn't an option for a 15-node picocluster. So, in the interest of giving the lab a bit of an 
 upgrade, and lowering the power at the same time, I went with the 20-node version. 
 
+Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_20_notes.md), however.
 
 #### NAS Storage
 
@@ -46,12 +47,27 @@ replaced it.
 
 #### Hard drives
 
+I wanted each node in the cluster to have a fair amount of local space available, because I want jobs running on the
+nodes to be able to decompress fairly large files without having to do that over a network share. So, I gave each 
+pi node a 500GB nvme drive, attached by USB. That drive is actually the boot drive as well, so none of the nodes are 
+running from SD cards. This speeds up the node's IO, and also saves me from having to worry about processes with lots
+of disk writes burning out the SD card. I did run into one problem, though: as of when I wrote this, the SSD drives
+I was using all required me to set "usb quirks" mode on the OS for those drives. If I didn't do this, the drives were
+not usable on the usb-3 adapters on the pi boards. [This post on the pi forums](https://forums.raspberrypi.com/viewtopic.php?t=245931)
+outlines what to do, with one extra caveat: if you're using Ubuntu "cmdline.txt" is actually at `/boot/firmware/cmdline.txt`
+
 
 #### Network
 
 I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
-I'm running all of these systems in a flat network, on a single switch. The switch is a gigabit-capable switch, 
-but there are no fancy switching or routing requirements here. 
+I'm running all of these systems in a flat network. The pico cluster comes with 4 switches, which you are encouraged
+to bridge together (and are given cables to do so). I did not do this. I did use the built-in switches, but rather than
+bridge them all together, I attacheded each picocluster switch to my home network switch. My hope is that by doing this
+the cluster overall will have more bandwidth out to the internet, without dragging down the home switch. If I get to 
+the point where individual nodes are starting to compete for bandwidth on that one cable up to the home switch, I can
+abandon the picocluster switches, but I haven't seen that need yet.
+
+My home networking switch is a gigabit-capable switch, but there are no fancy switching or routing requirements here. 
 
 #### OS
 
