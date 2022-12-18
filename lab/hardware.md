@@ -27,6 +27,19 @@ upgrade, and lowering the power at the same time, I went with the 20-node versio
 
 Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_20_notes.html) , however.
 
+One note on the picocluster beyond its assembly: because the pi's are using external storage (see below), they
+pull more power than a vanilla PI4 would. It turns out that the PicoCluster doesn't supply *quite* enough power 
+for all of the pi4's to run under load *and* power an external hard drive. What I ended up doing was turning off
+the built-in switches in the picocluster, and connecting all of the raspberry pi's directly to my lab switch. Doing
+that gave the cluster a bit more power, which allowed the cluster to be more stable in the long run.
+
+If you're curious what it looked like when a node couldn't get enough power, what I was seeing was some nodes would
+drop connections from the network while I was working with them. So, they would still show up as having a dhcp lease
+but all ssh connections to them would fail (which made remote administration of them a challenge). The node that would
+fail was seemingly random (different nodes in different stacks in the cluster), so I assume it was random based on 
+availability of power. Turning off the switches made the problem go away, so I feel somewhat justified in that 
+assumption. (it was either power or the switches sucked.)
+
 #### NAS Storage
 
 Since I want to treat the servers as basically disposable, all the actual data needs to live somewhere else. 
@@ -61,11 +74,10 @@ outlines what to do, with one extra caveat: if you're using Ubuntu "cmdline.txt"
 
 I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
 I'm running all of these systems in a flat network. The pico cluster comes with 4 switches, which you are encouraged
-to bridge together (and are given cables to do so). I did not do this. I did use the built-in switches, but rather than
-bridge them all together, I attacheded each picocluster switch to my home network switch. My hope is that by doing this
-the cluster overall will have more bandwidth out to the internet, without dragging down the home switch. If I get to 
-the point where individual nodes are starting to compete for bandwidth on that one cable up to the home switch, I can
-abandon the picocluster switches, but I haven't seen that need yet.
+to bridge together (and are given cables to do so). I did not do this. I ended up connecting all of the pi nodes 
+directly to my lab switch. As mentioned above, this was done because nodes in the cluster were periodically dropping
+off the network, which would have been a switch problem or a power problem. I solved it by unpowering the switches
+from the pico cluster and plugging the pi4's directly into the switch.
 
 My home networking switch is a gigabit-capable switch, but there are no fancy switching or routing requirements here. 
 
