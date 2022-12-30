@@ -1,6 +1,6 @@
 # Connecting to SMB shares from kubernetes
 
-By default, kubernetes does not support pure SMB shares. I think this is an mistake, but apparently none 
+By default, kubernetes does not support pure SMB shares. I think this is a mistake, but apparently none 
 of the major cloud providers want to offer that, they have their own custom file sharing protocols (because, of 
 course they do). This makes it hard to run a k8s-based lab at home, since out of the box the only options are 
 NFS (ick), or manually mounting file shares on every node in the cluster (gods, no). 
