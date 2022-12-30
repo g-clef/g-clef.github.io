@@ -27,18 +27,8 @@ upgrade, and lowering the power at the same time, I went with the 20-node versio
 
 Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_20_notes.html) , however.
 
-One note on the picocluster beyond its assembly: because the pi's are using external storage (see below), they
-pull more power than a vanilla PI4 would. It turns out that the PicoCluster doesn't supply *quite* enough power 
-for all of the pi4's to run under load *and* power an external hard drive. What I ended up doing was turning off
-the built-in switches in the picocluster, and connecting all of the raspberry pi's directly to my lab switch. Doing
-that gave the cluster a bit more power, which allowed the cluster to be more stable in the long run.
-
-If you're curious what it looked like when a node couldn't get enough power, what I was seeing was some nodes would
-drop connections from the network while I was working with them. So, they would still show up as having a dhcp lease
-but all ssh connections to them would fail (which made remote administration of them a challenge). The node that would
-fail was seemingly random (different nodes in different stacks in the cluster), so I assume it was random based on 
-availability of power. Turning off the switches made the problem go away, so I feel somewhat justified in that 
-assumption. (it was either power or the switches sucked.)
+One note on the picocluster beyond its assembly: because the pi's are using external storage, they
+pull more power than a vanilla PI4 would. That is a bit more complicated than it should be...more below.
 
 #### NAS Storage
 
@@ -58,7 +48,7 @@ feel like that's a major oversight). I wasn't feeling terribly good about the lo
 replaced it.
 
 
-#### Hard drives
+#### Node Storage
 
 I wanted each node in the cluster to have a fair amount of local space available, because I want jobs running on the
 nodes to be able to decompress fairly large files without having to do that over a network share. So, I gave each 
@@ -69,17 +59,30 @@ I was using all required me to set "usb quirks" mode on the OS for those drives.
 not usable on the usb-3 adapters on the pi boards. [This post on the pi forums](https://forums.raspberrypi.com/viewtopic.php?t=245931)
 outlines what to do, with one extra caveat: if you're using Ubuntu "cmdline.txt" is actually at `/boot/firmware/cmdline.txt`
 
+It's also worth noting that the Pi boards don't have *quite* enough power to reliably run NVMe drives from USB. They
+appear to at first - they would start, and would run okay initiall, but nodes would gradually drop out of the cluster 
+over time as they hit some power draw that was *just* over the limit of their power. What this looked like on the 
+network was a node that would ping, but would reject any ssh login. Basically, the kernel and the daemons were all
+still running, since the Pi was still up, but the moment it tried to read anything from disk, it failed. 
+This doesn't seem to be a limitation of the power provided by the Picocluster power supply itself, as I tried 
+unplugging the switches, and had the same problem. I ended up having to purchase 20 small powered USB hubs to avoid 
+this. That was a pain, and made the outside of the cluster *really* messy, because now there's a tangle of USB and 
+power lines around the pico cluster. But, moving that USB power to outside the PI fixed the problem.
+
 
 #### Network
 
 I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
 I'm running all of these systems in a flat network. The pico cluster comes with 4 switches, which you are encouraged
 to bridge together (and are given cables to do so). I did not do this. I ended up connecting all of the pi nodes 
-directly to my lab switch. As mentioned above, this was done because nodes in the cluster were periodically dropping
-off the network, which would have been a switch problem or a power problem. I solved it by unpowering the switches
-from the pico cluster and plugging the pi4's directly into the switch.
+directly to my lab switch. This was initially done when I was troubleshooting the power draw of the usb drives (to see
+if I could get enough power to the pi boards without driving the switches). That did not solve the problem, but 
+once I had all the pis plugged into the lab switch, there didn't seem to be any value in removing them all again.
 
-My home networking switch is a gigabit-capable switch, but there are no fancy switching or routing requirements here. 
+My home networking switch is a farily vanilla gigabit-capable switch. While I do want to keep things simple, I did 
+make one concession to reality, though: the lab ports are all on a separate network from the regular house network.
+Since the lab will have live malware on it, I wasn't a super-fan of having that be auto-discoverable from family 
+devices.
 
 #### OS
 
