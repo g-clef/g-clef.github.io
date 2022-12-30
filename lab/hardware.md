@@ -60,14 +60,14 @@ not usable on the usb-3 adapters on the pi boards. [This post on the pi forums](
 outlines what to do, with one extra caveat: if you're using Ubuntu "cmdline.txt" is actually at `/boot/firmware/cmdline.txt`
 
 It's also worth noting that the Pi boards don't have *quite* enough power to reliably run NVMe drives from USB. They
-appear to at first - they would start, and would run okay initiall, but nodes would gradually drop out of the cluster 
+appear to at first - they would start, and would run okay initially, but nodes would gradually drop out of the cluster 
 over time as they hit some power draw that was *just* over the limit of their power. What this looked like on the 
 network was a node that would ping, but would reject any ssh login. Basically, the kernel and the daemons were all
 still running, since the Pi was still up, but the moment it tried to read anything from disk, it failed. 
 This doesn't seem to be a limitation of the power provided by the Picocluster power supply itself, as I tried 
 unplugging the switches, and had the same problem. I ended up having to purchase 20 small powered USB hubs to avoid 
 this. That was a pain, and made the outside of the cluster *really* messy, because now there's a tangle of USB and 
-power lines around the pico cluster. But, moving that USB power to outside the PI fixed the problem.
+power lines around the pico cluster. But moving that USB power to outside the PI fixed the problem.
 
 
 #### Network
