@@ -12,8 +12,9 @@ what it actually *was*).
 
 Charmed k8s also had a bug that I was never able to chase down where a pod on a node couldn't
 reach a service if the pod answering the service was on teh same node (i.e. traffic hairpinned back to the same node).
-That really limited the internal traffic ability of the cluster. I worked around that for Prefect by putting Prefect 
-oustide the cluster, but it still kinda sucked.
+That really limited the internal traffic ability of the cluster, since there weren't that many nodes, so having multiple
+pods on the same node was fairly common. I worked around that for Prefect by putting Prefect oustide the cluster 
+initially, but it still kinda sucked.
 
 ### The way it is now
 
@@ -21,11 +22,12 @@ So, I replaced `juju + charmed-k8s` with `kubespray`. My thinking there was that
 by the kubernetes project itself (or at least, closer to the core maintainers), so it was less likely (not impossible, 
 mind you) to have the fiddly bugs I was running in to. After all, I'm trying to be a *user* of k8s, not an admin of it. 
 
-I also replaced LXC/LXD with Vagrant/Virtualbox for the google boxes, then running on metal for the picocluster.
+I initially also replaced LXC/LXD with Vagrant/Virtualbox for the google boxes, before setting on running on metal 
+with a cluster of 20 raspberry pis.
 
-Because this is ansible, I was also trying to do all of this remotely to the nodes. I.e. I wanted my 
+Because kubespray uses ansible, I was also trying to do all of this remotely to the nodes. I.e. I wanted my 
 development OSX box to be able to run the ansible script and provision the whole cluster automatically. I admit, 
-this is not something I was dong with juju, so I'm setting a higher bar for ansible than I did with juju...I feel 
+this is not something I was doing with juju, so I'm setting a higher bar for ansible than I did with juju...I feel 
 like ansible should be capable of passing this bar, however - managing remote servers is the whole *point* of ansible.
 
 ## How
@@ -34,7 +36,7 @@ like ansible should be capable of passing this bar, however - managing remote se
 
 The next thing to do was to follow the [kubespray integration instructions](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/integration.md)
 to pull the instructions to deploy the cluster into the provisioning settings. Because I'm running this on a bare 
-metal cluster, I added the metalLB pod.
+metal cluster, I added the metalLB deployment.
 
 Kubespray's recommended way of including the kubespray commands with an existing ansible playbook didn't work for me.
 The problem seemed to be that they tell you simply `include` the kubespray `cluster.yml` file, which is dynamically 
