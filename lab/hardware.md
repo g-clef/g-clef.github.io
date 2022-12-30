@@ -30,6 +30,7 @@ Assembling the picocluster turned into a bit of a [challenge](/lab/picocluster_2
 One note on the picocluster beyond its assembly: because the pi's are using external storage, they
 pull more power than a vanilla PI4 would. That is a bit more complicated than it should be...more below.
 
+
 #### NAS Storage
 
 Since I want to treat the servers as basically disposable, all the actual data needs to live somewhere else. 
