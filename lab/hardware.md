@@ -68,14 +68,26 @@ still running, since the Pi was still up, but the moment it tried to read anythi
 This doesn't seem to be a limitation of the power provided by the Picocluster power supply itself, as I tried 
 unplugging the switches, and had the same problem. I ended up having to purchase 20 small powered USB hubs to avoid 
 this. That was a pain, and made the outside of the cluster *really* messy, because now there's a tangle of USB and 
-power lines around the pico cluster. But moving that USB power to outside the PI fixed the problem.
+power lines around the pico cluster.
 
+Also, some bright spark on the Linux cluster team decided that usb  autosuspend should be enabled by default
+in newer Linux kernels. This means that the Linux cluster will sometimes suspect a USB drive - it's not clear
+to me what the criteria are for suspending a drive, all I know is that the hard drive would occasionally disappear
+while the system was running. Linux will do this even if the drive that's being suspended is the root drive. 
+
+Those two errors took me almost 3 months to completely troubleshoot, because they cause almost identical errors:
+the hard drive disappears from a random node in the cluster. The only way I knew that both were occurring was when 
+I disconnected the powered hub, and also disabled usb autosuspend. In that case, the node didn't disappear entirely,
+but dmesg filled with errors about the usb drive needing to be reset. 
+
+(Also, when you're setting this all up, if your powered USB hub has buttons to turn off the power to individual
+ports, make sure the power is on to the port with the drive on it. That's a frustrating error to find.)
 
 #### Network
 
 I like packets, and networking, I really do, but there's really no reason to make this network fancy in any way. 
 I'm running all of these systems in a flat network. The pico cluster comes with 4 switches, which you are encouraged
-to bridge together (and are given cables to do so). I did not do this. I ended up connecting all of the pi nodes 
+to bridge together (and are given cables to do so). I did not do this. I ended up connecting all the pi nodes 
 directly to my lab switch. This was initially done when I was troubleshooting the power draw of the usb drives (to see
 if I could get enough power to the pi boards without driving the switches). That did not solve the problem, but 
 once I had all the pis plugged into the lab switch, there didn't seem to be any value in removing them all again.
@@ -87,7 +99,10 @@ devices.
 
 #### OS
 
-I'm running vanilla Ubuntu 22.04LTS  on the servers. I'm only running the server version. Life lesson: never 
-run a GUI on Linux unless you like rebuilding your Window manager every other year. As mentioned before, I don't enjoy
-that anymore. Looking back at the number of times I found myself with a broken window manager after a dist-upgrade, 
-I don't think I enjoyed it then, either. Why I kept doing it remains a mystery to me.
+I'm running vanilla Raspian on all the servers, because one of my early trobleshooting attempts for the drive
+issues mentioned above was to try Raspian over ubuntu. It didn't make a difference, but I left the drives 
+at Raspian. Kubespray doesn't seem to care, so it's stayed there. Note: I'm only running the server version. 
+Life lesson: never run a GUI on Linux unless you like rebuilding your Window manager every other year. As 
+mentioned before, I don't enjoy that anymore. Looking back at the number of times I found myself with a broken 
+window manager after a dist-upgrade, I don't think I enjoyed it then, either. Why I kept doing it remains a 
+mystery to me.

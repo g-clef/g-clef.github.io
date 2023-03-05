@@ -22,8 +22,8 @@ So, I replaced `juju + charmed-k8s` with `kubespray`. My thinking there was that
 by the kubernetes project itself (or at least, closer to the core maintainers), so it was less likely (not impossible, 
 mind you) to have the fiddly bugs I was running in to. After all, I'm trying to be a *user* of k8s, not an admin of it. 
 
-I initially also replaced LXC/LXD with Vagrant/Virtualbox for the google boxes, before setting on running on metal 
-with a cluster of 20 raspberry pis.
+I initially also replaced LXC/LXD with Vagrant/Virtualbox for the Google boxes, before settling on running on metal 
+with a cluster of 20 raspberry pis (well, 19 after one of them had a hardware problem).
 
 Because kubespray uses ansible, I was also trying to do all of this remotely to the nodes. I.e. I wanted my 
 development OSX box to be able to run the ansible script and provision the whole cluster automatically. I admit, 
