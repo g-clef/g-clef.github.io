@@ -80,6 +80,9 @@ the hard drive disappears from a random node in the cluster. The only way I knew
 I disconnected the powered hub, and also disabled usb autosuspend. In that case, the node didn't disappear entirely,
 but dmesg filled with errors about the usb drive needing to be reset. 
 
+Lastly, it turned out that I had some hardware problems with at least two of the drives. (This project turned into a 
+bit of a comedy of errors.) That showed up as drives disappearing as well. 
+
 (Also, when you're setting this all up, if your powered USB hub has buttons to turn off the power to individual
 ports, make sure the power is on to the port with the drive on it. That's a frustrating error to find.)
 
@@ -99,10 +102,13 @@ devices.
 
 #### OS
 
-I'm running vanilla Raspian on all the servers, because one of my early trobleshooting attempts for the drive
-issues mentioned above was to try Raspian over ubuntu. It didn't make a difference, but I left the drives 
-at Raspian. Kubespray doesn't seem to care, so it's stayed there. Note: I'm only running the server version. 
-Life lesson: never run a GUI on Linux unless you like rebuilding your Window manager every other year. As 
-mentioned before, I don't enjoy that anymore. Looking back at the number of times I found myself with a broken 
-window manager after a dist-upgrade, I don't think I enjoyed it then, either. Why I kept doing it remains a 
-mystery to me.
+I'm running Ubuntu LTS on all the nodes. 
+
+One of my troubleshooting steps for the cluster hardware issues above was to try Raspbian, but some pieces of
+kubernetes will not run on Raspbian due to [this bug](https://github.com/raspberrypi/linux/issues/4375 ), which the
+Raspbian team (at the time I'm writing this) does not seem inclined to fix.
+
+I'm also running the server version of Ubuntu. Life lesson: never run a GUI on Linux unless you like rebuilding your 
+Window manager every other year. As mentioned before, I don't enjoy that anymore. Looking back at the number of times 
+I found myself with a broken window manager after a dist-upgrade, I don't think I enjoyed it then, either. Why I 
+kept doing it remains a mystery to me.
